@@ -72,7 +72,6 @@ class Dashboard:
             self.btn_expenses = tk.Button(frame_buttons, image=expenses_icon, command=expenses.add_expense, border=0)
             self.btn_expenses.image = expenses_icon
             self.btn_expenses.grid(row=0, column=0, padx=5, pady=5)
-            
         if expenses_icon:
             self.btn_expenses_label = tk.Label(frame_buttons, text="Expenses", font=("Montserrat", 9), bg="#FFFC30", fg="black") #added label to the button frame
             self.btn_expenses_label.grid(row=1, column=0, padx=1, pady=1)
