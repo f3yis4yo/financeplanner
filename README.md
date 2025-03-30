@@ -1,2 +1,4 @@
-# financeplanner
-Budget Planner for International Students 
+# FINANCE_PLANNER
+# database for the software 
+# mysql codes
+
