@@ -35,3 +35,12 @@ def add_income(customer_id, amount, income_date):
     conn.commit()
     print("Income added successfully!")
 
+#sample data for testing
+add_customer("Paul", "sendpaul@smaple.com", 1000.00)
+add_budget(1, "Education", 200.00, "2025-03-01")
+add_expense(1, 1, "Food", 50.00, "2025-03-02")
+add_income(1, "Salary", 2000.00, "2025-03-03")
+
+#close the database connection
+cursor.close()
+conn.close()
