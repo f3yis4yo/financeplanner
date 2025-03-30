@@ -153,10 +153,10 @@ class CustomGrid(GridLayout):
     def update_image_size(self, instance, value):
         instance.image.size = instance.size # Update image size.
 
-class MyApp(App):
+class FinancePlannerApp(App):
     def build(self):
         Window.clearcolor = (1, 1, 0.188, 1) # Set window background color.
         return CustomGrid() # Return the CustomGrid layout.
 
 if __name__ == '__main__':
-    MyApp().run() # Run the application.
+    FinancePlannerApp().run() # Run the application.
