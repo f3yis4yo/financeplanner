@@ -43,7 +43,7 @@ class CustomGrid(GridLayout):
 
         self.middle_label = Label(size_hint_x=0.8, color=(0, 0, 0, 1)) # Create the label for predictions, set text color to black.
         with self.middle_label.canvas.before:
-            Color(0.537, 0.953, 0.212) # Set background color.
+            Color(1, 1, 1) # Set background color.
             self.middle_label.rect = Rectangle(size=self.middle_label.size, pos=self.middle_label.pos) # Create the background rectangle.
         self.middle_label.bind(size=self.update_rect, pos=self.update_rect) # Bind size and position changes to update_rect.
         row_c.add_widget(self.middle_label)
@@ -61,7 +61,7 @@ class CustomGrid(GridLayout):
 
         button_config = {'text_pos': 'bottom', 'padding': (0, 90, 0, 0), 'image_y_offset': 20, 'size_hint': (0.9, 0.9)} # Button configuration.
 
-        d2_button = Button(text='Expenses')
+        d2_button = Button(text='Expenses') #Budget Limitatioins
         self.configure_rounded_button(d2_button, 'expenses.png', **button_config)
         d2_button.bind(on_press=self.show_add_expense_popup) # Bind expense button press.
         row_d.add_widget(self.create_button_box(d2_button))
@@ -89,6 +89,7 @@ class CustomGrid(GridLayout):
     def show_add_expense_popup(self, instance):
         popup = AddExpensePopup() # Create and open expense popup.
         popup.open()
+        self.prediction_app.show_predictions() 
     
     def show_add_summary_popup(self, instance):
         popup = AddExpensePopup() # Create and open summary popup.
@@ -155,7 +156,7 @@ class CustomGrid(GridLayout):
 
 class FinancePlannerApp(App):
     def build(self):
-        Window.clearcolor = (1, 1, 0.188, 1) # Set window background color.
+        Window.clearcolor = (0.95, 0.95, 0.95) # Set window background color.
         return CustomGrid() # Return the CustomGrid layout.
 
 if __name__ == '__main__':

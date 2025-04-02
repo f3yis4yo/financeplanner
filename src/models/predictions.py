@@ -25,7 +25,8 @@ class PredictionApp(EventDispatcher):
                 "Utilities": 100.0,
                 "Entertainment": 50.0,
                 "Transportation": 80.0,
-                "Other": 30.0
+                "Other": 30.0,
+                "Car": 120.0
             }
         try:
             # Dispatch the 'on_predictions' event, sending the prediction data.

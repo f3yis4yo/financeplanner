@@ -100,6 +100,7 @@ if __name__ == '__main__':
             add_button = Button(text="Add Expense")
             add_button.bind(on_press=self.show_add_expense_popup)
             layout.add_widget(add_button)
+            
             return layout
 
         def show_add_expense_popup(self, instance):
@@ -108,5 +109,4 @@ if __name__ == '__main__':
             """
             popup = AddExpensePopup()
             popup.open()
-
     ExpenseApp().run()
