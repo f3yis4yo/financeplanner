@@ -10,6 +10,7 @@ from kivy.core.window import Window
 import os
 from models.expenses import AddExpensePopup
 from models.predictions import PredictionApp
+from models.register import MyGrid 
 
 class CustomGrid(GridLayout):
     def __init__(self, **kwargs):
@@ -89,10 +90,11 @@ class CustomGrid(GridLayout):
     def show_add_expense_popup(self, instance):
         popup = AddExpensePopup() # Create and open expense popup.
         popup.open()
-        self.prediction_app.show_predictions() 
-    
+        self.prediction_app.show_predictions()
+
     def show_add_summary_popup(self, instance):
-        popup = AddExpensePopup() # Create and open summary popup.
+        from models.expenses import SummaryPopup
+        popup = SummaryPopup() # Create and open summary popup.
         popup.open()
 
     def show_add_predictions_popup(self, instance):
@@ -154,10 +156,23 @@ class CustomGrid(GridLayout):
     def update_image_size(self, instance, value):
         instance.image.size = instance.size # Update image size.
 
+class RegisterApp(App):
+    def build(self):
+        return MyGrid() 
+
 class FinancePlannerApp(App):
     def build(self):
         Window.clearcolor = (0.95, 0.95, 0.95) # Set window background color.
-        return CustomGrid() # Return the CustomGrid layout.
+        #######
+        #Uso esta variable para llamar al registro, debe ser cambiada por una verificacion en la DB si el usuario existe
+        ######
+        registerStatus = True
+        if registerStatus == False:
+            return CustomGrid() # Return the CustomGrid layout.
+        else:
+            register_app_instance = RegisterApp() # Crea una instancia de RegisterApp
+            return register_app_instance.build() # Llama al método build de la instancia para obtener el widget raíz
+
 
 if __name__ == '__main__':
     FinancePlannerApp().run() # Run the application.
