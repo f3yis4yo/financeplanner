@@ -2,6 +2,7 @@ from kivy.lang import Builder
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
+from models.encrypt import hash_password 
 import os
 
 # Define la ruta al archivo KV
@@ -32,7 +33,7 @@ class MyGrid(GridLayout):
         print(f"Email: {email}")
         print(f"Teléfono: {phone}")
         print(f"Contraseña: {password}")
-        print(f"Confirmar contraseña: {confirm_password}")
+        print(f"Confirmar contraseña: {hash_password(confirm_password)}")
         print(f"Pregunta de seguridad: {security_question}")
         print(f"Respuesta de seguridad: {security_answer}")
         print(f"Acepta términos: {terms_accepted}")
