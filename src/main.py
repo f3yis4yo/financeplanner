@@ -169,7 +169,7 @@ class FinancePlannerApp(App):
     def build(self):
         Window.clearcolor = (0.95, 0.95, 0.95) # Set window background color.
         #######
-        #Uso esta variable para llamar al registro, debe ser cambiada por una verificacion en la DB si el usuario existe
+        #I use this variable to call the view
         ######
         registerStatus = True
         if registerStatus == False:
@@ -178,7 +178,7 @@ class FinancePlannerApp(App):
             """register_app_instance = RegisterApp() # Crea una instancia de RegisterApp
             return register_app_instance.build() # Llama al método build de la instancia para obtener el widget raíz
 """
-            register_app_instance = LoginApp() # Crea una instancia de RegisterApp
+            register_app_instance = LoginApp()
             return register_app_instance.build() 
 
 if __name__ == '__main__':
