@@ -3,6 +3,7 @@ from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from models.encrypt import hash_password 
+from models.database import engine, base, session, sessionActive, user
 import os
 
 # Define la ruta al archivo KV
@@ -21,24 +22,21 @@ class MyGrid(GridLayout):
         fullname = self.ids.fullname_input.text
         email = self.ids.email_input.text
         phone = self.ids.phone_input.text
-        password = self.ids.password_input.text
+        password = hash_password(self.ids.password_input.text)
         confirm_password = self.ids.confirm_password_input.text
         security_question = self.ids.security_question_spinner.text
         security_answer = self.ids.security_answer_input.text
         terms_accepted = self.ids.terms_checkbox.active
         updates_subscribed = self.ids.updates_checkbox.active
 
-        print("--- Datos de Registro ---")
-        print(f"Nombre completo: {fullname}")
-        print(f"Email: {email}")
-        print(f"Teléfono: {phone}")
-        print(f"Contraseña: {password}")
-        print(f"Confirmar contraseña: {hash_password(confirm_password)}")
-        print(f"Pregunta de seguridad: {security_question}")
-        print(f"Respuesta de seguridad: {security_answer}")
-        print(f"Acepta términos: {terms_accepted}")
-        print(f"Subscrito a actualizaciones: {updates_subscribed}")
-        print("-------------------------")
+        new_user = user(fullname = fullname, email = email, phone = phone, password = password, confirm_password = confirm_password, security_question = security_question, security_answer = security_answer, terms_accepted = terms_accepted, updates_subscribed = updates_subscribed) 
+        sessionActive.add(new_user) # Add the new user object to the session
+        try:
+            sessionActive.commit() # Commit the changes to the database
+            print("Adding a new user...")
+        except Exception as e:
+            sessionActive.rollback() # If an error occurs, rollback the transaction
+            print("❌ Error adding user:", e) # Print the error message
         pass
 
 class RegisterApp(App):
