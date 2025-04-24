@@ -12,7 +12,7 @@ kv_file_path = os.path.join(os.path.dirname(__file__), "..", "view", "registerap
 try:
     Builder.load_file(kv_file_path)
 except FileNotFoundError:
-    print(f"Error: No se encontró el archivo KV en: {kv_file_path}")
+    print(f"Error: KV file not found in: {kv_file_path}")
 
 class MyGrid(GridLayout):
     def __init__(self, **kwargs):
