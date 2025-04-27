@@ -4,7 +4,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from models.encrypt import hash_password 
 from models.database import engine, base, session, sessionActive, user
-import os
+import os 
 
 # Define la ruta al archivo KV
 kv_file_path = os.path.join(os.path.dirname(__file__), "..", "view", "registerapp.kv")
