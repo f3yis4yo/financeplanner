@@ -4,6 +4,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from models.encrypt import hash_password 
 from models.database import engine, base, session, sessionActive, user
+from kivy.uix.screenmanager import ScreenManager, Screen
 import os
 
 # Define la ruta al archivo KV
@@ -14,9 +15,10 @@ try:
 except FileNotFoundError:
     print(f"Error: KV file not found in: {kv_file_path}")
 
-class MyGrid(GridLayout):
+class MyGrid(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.cols = 3
 
     def submit_registration(self):
         fullname = self.ids.fullname_input.text
