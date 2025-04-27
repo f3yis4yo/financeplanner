@@ -7,14 +7,6 @@ from models.database import engine, base, session, sessionActive, user
 from kivy.uix.screenmanager import ScreenManager, Screen
 import os
 
-# Define la ruta al archivo KV
-kv_file_path = os.path.join(os.path.dirname(__file__), "..", "view", "registerapp.kv")
-
-try:
-    Builder.load_file(kv_file_path)
-except FileNotFoundError:
-    print(f"Error: KV file not found in: {kv_file_path}")
-
 class MyGrid(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
