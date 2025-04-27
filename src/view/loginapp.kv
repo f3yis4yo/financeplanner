@@ -1,144 +1,118 @@
 #:kivy 2.3.1
 <MyLogin>:
-    cols: 3
-    spacing: 10
-    padding: 10
-    canvas.before:
-        Color:
-            rgba: 1, 1, 1, 1
-        Rectangle:
-            pos: self.pos
-            size: self.size
+    name: 'my_login'
+    GridLayout:
+        cols: 3
+        spacing: 10
+        padding: 20
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
 
-    column_minimum: 0, self.width * 0.10, self.width * 0.80, self.width * 0.10
+        column_minimum: 0, self.width * 0.10, self.width * 0.80, self.width * 0.10
 
-    # Fila A - Título
-    Label:
-        text: "A1"
-    Label:
-        text: "BudgieBudget"
-        color: 0, 0, 0, 1
-        font_size: '24sp'
-        bold: True
-    Label:
-        text: "A3"
+        # Fila A - Título
+        Label:
+            text: "A1"
+        Label:
+            text: "BudgieBudget"
+            color: 0, 0, 0, 1
+            font_size: '24sp'
+            bold: True
+        Label:
+            text: "A3"
 
-    # Fila B
-    Label:
-        text: "B1"
-    Label:
-        text: "Login"
-        color: 0, 0, 0, 1
-        width: self.texture_size[0]
-        halign: 'left'
-    Label:
+        # Fila B
+        Label:
+            text: "B1"
+        Label:
+            text: "Login"
+            color: 0, 0, 0, 1
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
 
-    # Fila C
-    Label:
-        text: "C1"
-    Label:
-        text: "Username or Email"
-        color: 0, 0, 1, 1
-        size_hint_x: None
-        width: self.texture_size[0]
-        halign: 'left'
-    Label:
+        # Fila C
+        Label:
+            text: "C1"
+        Label:
+            text: "Username or Email"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
 
-    # Fila D
-    Label:
-        text: "D1"
-    TextInput:
-        id: user_input
-        hint_text: "Enter your username or email"
-    Label:
+        # Fila D
+        Label:
+            text: "D1"
+        TextInput:
+            id: user_input
+            hint_text: "Enter your username or email"
+        Label:
 
-    # Fila E
-    Label:
-        text: "E1"
-    Label:
-        text: "Password"
-        color: 0, 0, 1, 1
-        size_hint_x: None
-        width: self.texture_size[0]
-        halign: 'left'
-    Label:
+        # Fila E
+        Label:
+            text: "E1"
+        Label:
+            text: "Password"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
 
-    # Fila F
-    Label:
-        text: "F1"
-    Label:
-        text: "Phone"
-        color: 0, 0, 1, 1
-        size_hint_x: None
-        width: self.texture_size[0]
-        halign: 'left'
-    Label:
+        # Fila F
+        Label:
+            text: "F1"
+        TextInput:
+            id: phone_input
+            hint_text: "Enter your password"
+        Label:
 
-    # Fila G
-    Label:
-        text: "G1"
-    TextInput:
-        id: phone_input
-        hint_text: "Enter your phone"
-    Label:
+        # Fila G
+        Label:
+            text: "G1"
+        Button:
+            text: "Login"
+            background_color: 0.2, 0.4, 0.8, 1
+            background_normal: ''
+        
+        Label:
 
-    # Fila H
-    Label:
-        text: "H1"
-    Label:
-        text: "Password"
-        color: 0, 0, 1, 1
-        size_hint_x: None
-        width: self.texture_size[0]
-        halign: 'left'
-    Label:
+        # Fila H
+        Label:
+            text: "H1"
+        Button:
+            text: "Register"
+            color: 0, 0, 1, 1
+            background_color: 1, 1, 1, 1  # Blanco
+            background_normal: ''
+            border: (2, 2, 2, 2)  # Ancho del borde: izquierda, arriba, derecha, abajo
+            on_press: root.manager.current = 'register_screen'
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 1, 1 
+                Line:
+                    width: 2
+                    rectangle: self.x, self.y, self.width, self.height
+        Label:
 
-    # Fila I
-    Label:
-        text: "I1"
-    TextInput:
-        id: password_input
-        hint_text: "Enter your password"
-        password: True
-    Label:
-
-    # Fila J
-    Label:
-        text: "J1"
-    Label:
-        text: "Confirm password"
-        color: 0, 0, 1, 1
-        size_hint_x: None
-        width: self.texture_size[0]
-        halign: 'left'
-    Label:
-
-    # Fila K
-    Label:
-        text: "K1"
-    TextInput:
-        id: confirm_password_input
-        hint_text: "Enter you password again"
-        password: True
-    Label:
-
-    # Fila L
-    Label:
-        text: "L1"
-    Label:
-        text: "Security question"
-        color: 0, 0, 1, 1
-        size_hint_x: None
-        width: self.texture_size[0]
-        halign: 'left'
-    Label:
-
-    # Fila Q
-    Label:
-        text: "Q1"
-    Button:
-        text: "Register"
-        background_color: 0.2, 0.4, 0.8, 1
-        background_normal: ''
-        on_press: root.submit_registration() # Llamamos a la función en MyGrid
-    Label:
+        # Fila Q
+        Label:
+            text: "Q1"
+        Button:
+            text: "Forgot password?"
+            color: 0, 0, 1, 1
+            width: self.texture_size[0]
+            halign: 'left'
+            underline: True
+            background_color: (0, 0, 0, 0) 
+            background_normal: ''
+            border: (0, 0, 0, 0)
+            on_press: root.manager.current = 'recover_screen'
+            cursor: 'hand'
+        Label:

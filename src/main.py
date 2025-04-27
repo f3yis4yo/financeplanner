@@ -5,16 +5,34 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.graphics import Color, RoundedRectangle, Rectangle
+from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.image import Image
 from kivy.core.window import Window
+from kivy.lang import Builder
 import os
 from models.expenses import AddExpensePopup
 from models.predictions import PredictionApp
-from models.register import MyGrid 
-from models.login import MyLogin 
+from models.register import MyGrid as RegisterScreen
+from models.login import MyLogin
+from models.recover import MyRecover as RecoverScreen
+
+# Define las rutas a los archivos KV
+kv_dir = os.path.dirname(__file__)
+login_kv_path = os.path.join(kv_dir, "view", "loginapp.kv")
+register_kv_path = os.path.join(kv_dir, "view", "registerapp.kv")
+recover_kv_path = os.path.join(kv_dir, "view", "recoverapp.kv")
+
+print(recover_kv_path)
+
+try:
+    Builder.load_file(login_kv_path)
+    Builder.load_file(register_kv_path)
+    Builder.load_file(recover_kv_path)
+except FileNotFoundError as e:
+    print(f"Error: KV file not found: {e}")
 
 class CustomGrid(GridLayout):
-    def __init__(self, **kwargs):
+    """def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.rows = 6
         self.prediction_app = PredictionApp() # Instantiate PredictionApp and store it as an instance attribute.
@@ -22,7 +40,7 @@ class CustomGrid(GridLayout):
 
         # Row A: Top row with close button.
         row_a = GridLayout(cols=9, size_hint_y=0.5)
-        for i in range(7):
+        for _ in range(7):
             row_a.add_widget(Label(text='')) # Add empty labels for spacing.
 
         close_button = Button()
@@ -155,31 +173,20 @@ class CustomGrid(GridLayout):
         instance.image.pos = (instance.pos[0], instance.pos[1] + instance.image_y_offset) # Update image position.
 
     def update_image_size(self, instance, value):
-        instance.image.size = instance.size # Update image size.
-
-class RegisterApp(App):
-    def build(self):
-        return MyGrid() 
-
-class LoginApp(App):
-    def build(self):
-        return MyLogin() 
+        instance.image.size = instance.size # Update image size."""
+    pass
 
 class FinancePlannerApp(App):
     def build(self):
-        Window.clearcolor = (0.95, 0.95, 0.95) # Set window background color.
-        #######
-        #I use this variable to call the view
-        ######
-        registerStatus = True
-        if registerStatus == False:
-            return CustomGrid() # Return the CustomGrid layout.
-        else:
-            """register_app_instance = RegisterApp() # Crea una instancia de RegisterApp
-            return register_app_instance.build() # Llama al método build de la instancia para obtener el widget raíz
-"""
-            register_app_instance = LoginApp()
-            return register_app_instance.build() 
+        Window.clearcolor = (0.95, 0.95, 0.95)
+        sm = ScreenManager()
+        login_screen = MyLogin(name='login_screen')
+        register_screen = RegisterScreen(name='register_screen')
+        recover_screen = RecoverScreen(name='recover_screen')
+        sm.add_widget(login_screen)
+        sm.add_widget(register_screen)
+        sm.add_widget(recover_screen)
+        return sm
 
 if __name__ == '__main__':
-    FinancePlannerApp().run() # Run the application.
+    FinancePlannerApp().run()
