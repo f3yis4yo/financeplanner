@@ -2,15 +2,22 @@ from kivy.lang import Builder
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
-from models.encrypt import hash_password 
-from models.database import engine, base, session, sessionActive, user
+from models.encrypt import hash_password
+from models.database import engine, base, user, get_session  # Import get_session
 from kivy.uix.screenmanager import ScreenManager, Screen
 import os
+
+# Define la ruta al archivo KV (asegúrate de que sea correcta)
+kv_file_path = os.path.join(os.path.dirname(__file__), "..", "view", "registerapp.kv")
+
+try:
+    Builder.load_file(kv_file_path)
+except FileNotFoundError:
+    print(f"Error: KV file not found in: {kv_file_path}")
 
 class MyGrid(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.cols = 3
 
     def submit_registration(self):
         fullname = self.ids.fullname_input.text
@@ -20,18 +27,31 @@ class MyGrid(Screen):
         confirm_password = self.ids.confirm_password_input.text
         security_question = self.ids.security_question_spinner.text
         security_answer = self.ids.security_answer_input.text
-        terms_accepted = self.ids.terms_checkbox.active
-        updates_subscribed = self.ids.updates_checkbox.active
+        terms_accepted = 'True' if self.ids.terms_checkbox.active else 'False'
+        updates_subscribed = 'True' if self.ids.updates_checkbox.active else 'False'
 
-        new_user = user(fullname = fullname, email = email, phone = phone, password = password, confirm_password = confirm_password, security_question = security_question, security_answer = security_answer, terms_accepted = terms_accepted, updates_subscribed = updates_subscribed) 
-        sessionActive.add(new_user) # Add the new user object to the session
+        session = get_session()  # Obtén una nueva sesión
         try:
-            sessionActive.commit() # Commit the changes to the database
-            print("Adding a new user...")
+            new_user = user(
+                fullname=fullname,
+                email=email,
+                phone=phone,
+                password=password,
+                confirm_password=confirm_password,
+                security_question=security_question,
+                security_answer=security_answer,
+                terms_accepted=terms_accepted,
+                updates_subscribed=updates_subscribed
+            )
+            session.add(new_user)
+            session.commit()
+            print("✅ User registered successfully!")
+            self.manager.current = 'login_screen' 
         except Exception as e:
-            sessionActive.rollback() # If an error occurs, rollback the transaction
-            print("❌ Error adding user:", e) # Print the error message
-        pass
+            session.rollback()
+            print(f"❌ Error during registration: {e}")
+        finally:
+            session.close()
 
 class RegisterApp(App):
     def build(self):
