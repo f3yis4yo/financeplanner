@@ -40,7 +40,7 @@ class CustomGrid(GridLayout):
 
         # Row A: Top row with close button.
         row_a = GridLayout(cols=9, size_hint_y=0.5)
-        for i in range(7):
+        for _ in range(7):
             row_a.add_widget(Label(text='')) # Add empty labels for spacing.
 
         close_button = Button()
