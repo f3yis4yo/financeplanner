@@ -1,0 +1,213 @@
+#:kivy 2.3.1
+<MyGrid>:
+    name: 'register_screen'
+    GridLayout:
+        cols: 3
+        spacing: 10
+        padding: 10
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        column_minimum: 0, self.width * 0.10, self.width * 0.80, self.width * 0.10
+
+        # Fila A - Título
+        Label:
+            text: "A1"
+        Label:
+            text: "Register"
+            color: 0, 0, 0, 1
+            font_size: '24sp'
+            bold: True
+        Label:
+            text: "A3"
+
+        # Fila B
+        Label:
+            text: "B1"
+        Label:
+            text: "Full name"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila C
+        Label:
+            text: "C1"
+        TextInput:
+            id: fullname_input
+            hint_text: "Enter your full name"
+        Label:
+
+        # Fila D
+        Label:
+            text: "D1"
+        Label:
+            text: "Email"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila E
+        Label:
+            text: "E1"
+        TextInput:
+            id: email_input
+            hint_text: "Enter your email"
+        Label:
+
+        # Fila F
+        Label:
+            text: "F1"
+        Label:
+            text: "Phone"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila G
+        Label:
+            text: "G1"
+        TextInput:
+            id: phone_input
+            hint_text: "Enter your phone"
+        Label:
+
+        # Fila H
+        Label:
+            text: "H1"
+        Label:
+            text: "Password"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila I
+        Label:
+            text: "I1"
+        TextInput:
+            id: password_input
+            hint_text: "Enter your password"
+            password: True
+        Label:
+
+        # Fila J
+        Label:
+            text: "J1"
+        Label:
+            text: "Confirm password"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila K
+        Label:
+            text: "K1"
+        TextInput:
+            id: confirm_password_input
+            hint_text: "Enter you password again"
+            password: True
+        Label:
+
+        # Fila L
+        Label:
+            text: "L1"
+        Label:
+            text: "Security question"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila M
+        Label:
+            text: "M1"
+        Spinner:
+            id: security_question_spinner
+            text: "Choose a security question"
+            values: ["What is your mother's maiden name?", "What was the name of your first pet?", "What is your favorite book?", "What was the name of your elementary school?", "In which city were you born?", "What is your favorite color?", "What was the make of your first car?"]
+            size_hint_x: 1
+        Label:
+
+        # Fila N
+        Label:
+            text: "N1"
+        Label:
+            text: "Answer"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila O
+        Label:
+            text: "O1"
+        TextInput:
+            id: security_answer_input
+            hint_text: "Enter your answer"
+        Label:
+
+        # Fila P
+        Label:
+            text: "P1"
+        BoxLayout:
+            id: terms_boxlayout
+            orientation: 'horizontal'
+            spacing: 10
+            size_hint_x: 1
+            CheckBox:
+                id: terms_checkbox
+                size_hint_x: None
+                width: 30
+            Label:
+                text: "I agree to the Terms and Conditions"
+                color: 0, 0, 0, 1
+                halign: 'left'
+                valign: 'middle'
+                text_size: self.size
+        Label:
+
+        # Fila P1
+        Label:
+            text: "P1"
+        BoxLayout:
+            id: updates_boxlayout
+            orientation: 'horizontal'
+            spacing: 10
+            size_hint_x: 1
+            CheckBox:
+                id: updates_checkbox
+                size_hint_x: None
+                width: 30
+            Label:
+                text: "Subcribe to BugdieBudge updates"
+                color: 0, 0, 0, 1
+                halign: 'left'
+                valign: 'middle'
+                text_size: self.size
+        Label:
+
+        # Fila Q
+        Label:
+            text: "Q1"
+        Button:
+            text: "Register"
+            background_color: 0.2, 0.4, 0.8, 1
+            background_normal: ''
+            on_press: root.submit_registration() # Llamamos a la función en MyGrid
+        Label:
