@@ -3,17 +3,10 @@ from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from models.encrypt import hash_password
-from models.database import get_session, user  # Import get_session and user
+from models.database import get_session, user
 from kivy.uix.screenmanager import ScreenManager, Screen
 import os
 
-# Define la ruta al archivo KV (asegúrate de que sea correcta)
-kv_file_path = os.path.join(os.path.dirname(__file__), "..", "view", "recoverapp.kv")
-
-try:
-    Builder.load_file(kv_file_path)
-except FileNotFoundError:
-    print(f"Error: KV file not found in: {kv_file_path}")
 
 class MyRecover(Screen):
     def __init__(self, **kwargs):
