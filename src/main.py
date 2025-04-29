@@ -15,36 +15,34 @@ from models.predictions import PredictionApp
 from models.register import MyGrid as RegisterScreen
 from models.login import MyLogin
 from models.recover import MyRecover as RecoverScreen
+from models.dashboard import DashboardScreen as Dashboard_Screen
 
 # Define las rutas a los archivos KV
 kv_dir = os.path.dirname(__file__)
 login_kv_path = os.path.join(kv_dir, "view", "loginapp.kv")
 register_kv_path = os.path.join(kv_dir, "view", "registerapp.kv")
 recover_kv_path = os.path.join(kv_dir, "view", "recoverapp.kv")
+dashboard_kv_path = os.path.join(kv_dir, "view", "dashboardapp.kv")
 
 try:
     Builder.load_file(login_kv_path)
     Builder.load_file(register_kv_path)
     Builder.load_file(recover_kv_path)
+    Builder.load_file(dashboard_kv_path) 
 except FileNotFoundError as e:
     print(f"Error: KV file not found: {e}")
 
-<<<<<<< HEAD
 class CustomGrid():
     def build(self):
-        return 
+        return
 
 class RegisterApp(App):
     def build(self):
-        return MyGrid() 
+        return MyGrid()
 
 class LoginApp(App):
     def build(self):
-        return MyLogin() 
-=======
-class CustomGrid(GridLayout):
-    pass
->>>>>>> origin/main
+        return MyLogin()
 
 class FinancePlannerApp(App):
     def build(self):
@@ -53,9 +51,11 @@ class FinancePlannerApp(App):
         login_screen = MyLogin(name='login_screen')
         register_screen = RegisterScreen(name='register_screen')
         recover_screen = RecoverScreen(name='recover_screen')
+        dashboard_screen = Dashboard_Screen(name='dashboard_screen')
         sm.add_widget(login_screen)
         sm.add_widget(register_screen)
         sm.add_widget(recover_screen)
+        sm.add_widget(dashboard_screen)
         return sm
 
 if __name__ == '__main__':
