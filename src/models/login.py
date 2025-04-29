@@ -10,6 +10,7 @@ from sqlalchemy.orm import sessionmaker
 from kivy.lang import Builder # Import Builder
 from .database import user, engine 
 from .encrypt import verify_password, hash_password
+from .dashboard import DashboardScreen
 import os
 
 # Create a sessionmaker, which is a factory for creating database sessions
@@ -31,8 +32,7 @@ class MyLogin(Screen):
             found_user = session.query(user).filter(user.fullname == fullname).first()
             if found_user:
                 if verify_password(password, found_user.password):
-                    print(f"✅ Login successful for user: {found_user.fullname}")
-                    self.manager.current = 'main_menu_screen'
+                    self.manager.current = 'dashboard_screen'
                 else:
                     self.login_error = "Incorrect password."
             else:
@@ -61,11 +61,19 @@ class RegisterScreen(Screen):
         layout.add_widget(Label(text='Pantalla de Registro'))
         self.add_widget(layout)
 
+class DashboardScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        layout = BoxLayout(orientation='vertical')
+        layout.add_widget(Label(text='Dashboard'))
+        self.add_widget(layout)
+
 class TestApp(App):
     def build(self):
         # Load KV file here
-        Builder.load_file("loginapp.kv") # Make sure the filename is correct
-        sm = ScreenManager()
+        Builder.load_file("loginapp.kv")
+        sm = ScreenManager() 
+        sm.add_widget(DashboardScreen(name='dashboard_screen'))
         sm.add_widget(LoginScreen(name='my_login'))
         sm.add_widget(MainMenuScreen(name='main_menu_screen'))
         sm.add_widget(RegisterScreen(name='register_screen'))
