@@ -22,8 +22,6 @@ login_kv_path = os.path.join(kv_dir, "view", "loginapp.kv")
 register_kv_path = os.path.join(kv_dir, "view", "registerapp.kv")
 recover_kv_path = os.path.join(kv_dir, "view", "recoverapp.kv")
 
-print(recover_kv_path)
-
 try:
     Builder.load_file(login_kv_path)
     Builder.load_file(register_kv_path)
@@ -31,6 +29,7 @@ try:
 except FileNotFoundError as e:
     print(f"Error: KV file not found: {e}")
 
+<<<<<<< HEAD
 class CustomGrid():
     def build(self):
         return 
@@ -42,6 +41,10 @@ class RegisterApp(App):
 class LoginApp(App):
     def build(self):
         return MyLogin() 
+=======
+class CustomGrid(GridLayout):
+    pass
+>>>>>>> origin/main
 
 class FinancePlannerApp(App):
     def build(self):
