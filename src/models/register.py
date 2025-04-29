@@ -9,8 +9,8 @@ import os
 
 
 class MyGrid(Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def _init_(self, **kwargs):
+        super()._init_(**kwargs)
 
     def submit_registration(self):
         fullname = self.ids.fullname_input.text

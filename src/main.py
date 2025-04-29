@@ -29,8 +29,22 @@ try:
 except FileNotFoundError as e:
     print(f"Error: KV file not found: {e}")
 
+<<<<<<< HEAD
+class CustomGrid():
+    def build(self):
+        return 
+
+class RegisterApp(App):
+    def build(self):
+        return MyGrid() 
+
+class LoginApp(App):
+    def build(self):
+        return MyLogin() 
+=======
 class CustomGrid(GridLayout):
     pass
+>>>>>>> origin/main
 
 class FinancePlannerApp(App):
     def build(self):
