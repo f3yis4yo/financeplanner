@@ -1,0 +1,66 @@
+#:kivy 2.3.1
+<MySettings>:
+    name: 'settings_screen'
+    GridLayout:
+        cols: 1
+        padding: 20
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: 0.83, 0.83, 0.83, 1 # Light Grey
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: 'Password Recovery'
+            font_size: 24
+            bold: True
+            color: 0, 0, 0, 1
+            size_hint_y: None
+            height: self.texture_size[1] + 20
+            halign: 'center'
+
+        Label:
+            text: 'Enter New Password'
+            font_size: 18
+            color: 0.2, 0.4, 1, 1 # Blue
+            size_hint_y: None
+            height: self.texture_size[1] + 10
+            halign: 'center'
+
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                text: 'New Password:'
+                size_hint_x: 0.4
+                color: 0, 0, 0, 1
+            TextInput:
+                id: new_password_input
+                password: True
+                multiline: False
+
+        BoxLayout:
+            orientation: 'horizontal'
+            Label:
+                text: 'Confirm New Password:'
+                size_hint_x: 0.4
+                color: 0, 0, 0, 1
+            TextInput:
+                id: confirm_new_password_input
+                password: True
+                multiline: False
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint_y: None
+            height: '40dp'
+            spacing: '10dp'
+            Button:
+                text: 'Cancel'
+                background_color: 0.66, 0.66, 0.66, 1
+                on_press: root.manager.current = 'recover_screen'
+            Button:
+                text: 'Save New Password'
+                background_color: 0.2, 0.5, 1, 1
+                on_press: root.save_new_password()
