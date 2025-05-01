@@ -1,3 +1,4 @@
+# settings.py
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
@@ -6,153 +7,74 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from kivy.metrics import dp
 from kivy.graphics import Color, Rectangle
+from kivy.uix.screenmanager import Screen
+from models.encrypt import hash_password, verify_password
+from models.database import get_session, user
 
-class MySettings(GridLayout):
+class MySettings(Screen):  # Inherit directly from Screen
+    current_user_email = ""
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.rows = 8
+        layout = GridLayout(cols=1, padding=20, spacing=10)  # Create a GridLayout with 1 column
 
-        # Background color
-        with self.canvas.before:
-            Color(0.83, 0.83, 0.83, 1)  #LIGHT GREY 
-            self.bg_rect = Rectangle(pos=self.pos, size=self.size)
-        self.bind(pos=self._update_bg, size=self._update_bg)
+        # Title
+        layout.add_widget(Label(text='Password Recovery', font_size=24, bold=True, color=(0, 0, 0, 1), size_hint_y=None, height='40dp'))
+        layout.add_widget(Label(text='Enter New Password', font_size=18, color=(0.2, 0.4, 1, 1), size_hint_y=None, height='30dp'))
 
-        # Row A: Title
-        row_a = GridLayout (cols=1)
-        label_a = (Label(
-            text='Settings',
-            halign = 'center',
-            font_size=24,
-            bold=True,
-            color=(0, 0, 0, 1),
-        )) 
-        row_a.add_widget(label_a)
-        self.add_widget(row_a)
+        # New Password Input
+        new_password_layout = BoxLayout(orientation='horizontal', size_hint_y=None, height='40dp', spacing='10dp')
+        new_password_layout.add_widget(Label(text='New Password:', size_hint_x=0.4, color=(0, 0, 0, 1)))
+        self.new_password_input = TextInput(hint_text='New Password', password=True, multiline=False, size_hint_x=0.6)
+        new_password_layout.add_widget(self.new_password_input)
+        layout.add_widget(new_password_layout)
 
-        # Row B: Subtitle "Edit Profile"
-        row_b = GridLayout(cols=1)
-        label_b =(Label(
-            text='Edit Profile',
-            halign = 'center',
-            font_size = 18,
-            bold=True,
-            color=(0.2, 0.4, 1, 1), # BLUE
-        )) 
-        row_b.add_widget(label_b)
-        self.add_widget(row_b)
+        # Confirm New Password Input
+        confirm_password_layout = BoxLayout(orientation='horizontal', size_hint_y=None, height='40dp', spacing='10dp')
+        confirm_password_layout.add_widget(Label(text='Confirm New Password:', size_hint_x=0.4, color=(0, 0, 0, 1)))
+        self.confirm_new_password_input = TextInput(hint_text='Confirm New Password', password=True, multiline=False, size_hint_x=0.6)
+        confirm_password_layout.add_widget(self.confirm_new_password_input)
+        layout.add_widget(confirm_password_layout)
 
-        # Row C: BoxLayout for user input fields
-        row_c = GridLayout (cols = 1, size_hint_y=3)
-        input_box = BoxLayout(orientation='vertical', size_hint=(1, None), height=dp(180), padding=dp(8), spacing=dp(6))
-        with input_box.canvas.before:
-            Color(1, 1, 1, 1)
-            self.input_bg = Rectangle(pos=input_box.pos, size=input_box.size)
-        input_box.bind(pos=lambda instance, value: setattr(self.input_bg, 'pos', value),
-                       size=lambda instance, value: setattr(self.input_bg, 'size', value))
-        input_box.add_widget(self.create_input_row('Full Name:'))
-        input_box.add_widget(self.create_input_row('Email:'))
-        input_box.add_widget(self.create_input_row('Phone:'))
-        input_box.add_widget(self.create_input_row('Address:'))
-        row_c.add_widget(input_box)
-        self.add_widget(row_c)
+        # Buttons Layout
+        buttons_layout = BoxLayout(orientation='horizontal', size_hint_y=None, height='40dp', spacing='10dp')
+        cancel_button = Button(text='Cancel', background_color=(0.66, 0.66, 0.66, 1), on_press=self.cancel_action)
+        save_button = Button(text='Save New Password', background_color=(0.2, 0.5, 1, 1), on_press=self.save_new_password)
+        buttons_layout.add_widget(cancel_button)
+        buttons_layout.add_widget(save_button)
+        layout.add_widget(buttons_layout)
 
-        # Row D: Buttons (Cancel and Save)
-        row_d = GridLayout(cols=3, size_hint_y = None, height = dp(30))
-        row_d.add_widget(Button(
-            text='Cancel',
-            halign = 'left',
-            background_color=(0.66, 0.66, 0.66, 1),
-            on_press=self.cancel_action
-        ))  
-        row_d.add_widget(Label(text=''))# empty D2
-        row_d.add_widget(Button(
-            text='Save',
-            halign = 'right',
-            background_color=(0.2, 0.5, 1, 1),
-            on_press=self.save_action
-        )) 
-        self.add_widget(row_d)
+        self.add_widget(layout) # Add the main GridLayout to the Screen
 
-        # Row E: Subtitle "Change Password"
-        row_e = GridLayout(cols=1)
-        label_e = (Label(
-            text ='Change Password',
-            halign = 'center',
-            font_size = 18,
-            bold=True,
-            color=(0.2, 0.4, 1, 1),
-        ))  
-        row_e.add_widget(label_e)
-        self.add_widget(row_e)
-
-        # Row F: BoxLayout for password fields
-        row_f = GridLayout(cols=1, size_hint_y=3)
-        password_box = BoxLayout(
-            orientation='vertical', 
-            size_hint=(1, None), 
-            height=dp(140), 
-            padding=dp(8), spacing=dp(6))
-        with password_box.canvas.before:
-            Color(1, 1, 1, 1)
-            self.password_bg = Rectangle(pos=password_box.pos, size=password_box.size)
-        password_box.bind(pos=lambda instance, value: setattr(self.password_bg, 'pos', value),
-                          size=lambda instance, value: setattr(self.password_bg, 'size', value))
-        password_box.add_widget(self.create_input_row('Current Password:', password=True))
-        password_box.add_widget(self.create_input_row('New Password:', password=True))
-        password_box.add_widget(self.create_input_row('Confirm New Password:', password=True))
-        row_f.add_widget(password_box)  
-        self.add_widget(row_f)
-
-        # Row G: Buttons (Cancel and Save)
-        row_g = GridLayout(cols=3, size_hint_y = None, height = dp(30))
-        row_g.add_widget(Button(
-            text='Cancel',
-            halign = 'left',
-            background_color=(0.66, 0.66, 0.66, 1),
-            on_press=self.cancel_action
-        ))  
-        row_g.add_widget(Label(text='')) # empty G2
-        row_g.add_widget(Button(
-            text='Save',
-            halign = 'right',
-            background_color=(0.2, 0.5, 1, 1),
-            on_press=self.save_action
-        )) 
-        self.add_widget(row_g)
-    
-    # function as helper to create input rows with labels and text inputs \ password = false means 
-    def create_input_row(self, label_text, password=False):
-        row = BoxLayout(
-            orientation='horizontal', 
-            size_hint=(1, None), 
-            height=dp(36), 
-            spacing=dp(6))
-        row.add_widget(Label(
-            text=label_text,
-            font_size = 14,
-            color=(0, 0, 0, 1),
-            size_hint_x = 0.4
-        ))
-        row.add_widget(TextInput(
-            password = password,
-            multiline = False, # allows only one line to input text
-            size_hint_x = 0.6
-        ))
-        return row
-    
-    # function to update the backgoround rectangle when the size or position changes
-    def _update_bg(self, *args):
-        self.bg_rect.pos = self.pos
-        self.bg_rect.size = self.size
-    
-    # instance method for cancel action TBD
     def cancel_action(self, instance):
-        print("Cancel action triggered")
-    
-    # instance method for save action TBD
-    def save_action(self, instance):
-        print("Save action triggered")
+        self.manager.current = 'recover_screen'
+
+    def save_new_password(self, instance):
+        new_password = self.new_password_input.text
+        confirm_password = self.confirm_new_password_input.text
+
+        if new_password == confirm_password:
+            if self.current_user_email:
+                session = get_session()
+                try:
+                    user_to_update = session.query(user).filter(user.email == self.current_user_email).first()
+                    if user_to_update:
+                        hashed_new_password = hash_password(new_password)
+                        user_to_update.password = hashed_new_password
+                        session.commit()
+                        print(f"✅ Password updated successfully for user: {self.current_user_email}")
+                        self.manager.current = 'login_screen' # Go back to the login screen
+                    else:
+                        print(f"❌ User with email {self.current_user_email} not found.")
+                except Exception as e:
+                    session.rollback()
+                    print(f"❌ Error updating password: {e}")
+                finally:
+                    session.close()
+            else:
+                print("❌ No user email provided for password update.")
+        else:
+            print("❌ New passwords do not match.")
 
 class SettingsApp(App):
     def build(self):
