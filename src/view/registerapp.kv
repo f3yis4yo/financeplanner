@@ -25,6 +25,17 @@
         Label:
             text: "A3"
 
+        Label:
+            text: "G1"
+        Label:
+            text: root.login_error
+            color: 1, 0, 0, 1 # Color rojo para indicar error
+            halign: 'center'
+            size_hint_y: None
+            height: 20
+        
+        Label:
+
         # Fila B
         Label:
             text: "B1"
@@ -209,5 +220,5 @@
             text: "Register"
             background_color: 0.2, 0.4, 0.8, 1
             background_normal: ''
-            on_press: root.submit_registration() # Llamamos a la función en MyGrid
+            on_press: root.submit_registration() 
         Label:

@@ -1,6 +1,7 @@
 from kivy.lang import Builder
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
+from kivy.properties import StringProperty
 from kivy.uix.label import Label
 from models.encrypt import hash_password
 from models.database import engine, base, user, get_session  # Import get_session
@@ -9,21 +10,31 @@ import os
 
 
 class MyGrid(Screen):
+    login_error = StringProperty('')
+
     def _init_(self, **kwargs):
         super()._init_(**kwargs)
 
     def submit_registration(self):
+        session = get_session()
+        self.login_error = ''
+
         fullname = self.ids.fullname_input.text
         email = self.ids.email_input.text
         phone = self.ids.phone_input.text
-        password = hash_password(self.ids.password_input.text)
-        confirm_password = self.ids.confirm_password_input.text
         security_question = self.ids.security_question_spinner.text
         security_answer = self.ids.security_answer_input.text
         terms_accepted = 'True' if self.ids.terms_checkbox.active else 'False'
         updates_subscribed = 'True' if self.ids.updates_checkbox.active else 'False'
 
-        session = get_session()  # Obtén una nueva sesión
+        if (self.ids.password_input.text == self.ids.confirm_password_input.text):
+            password = hash_password(self.ids.password_input.text)
+            confirm_password = self.ids.confirm_password_input.text
+        else:
+            self.login_error = "The password is not the same."
+            session.rollback()
+
+          # Obtén una nueva sesión
         try:
             new_user = user(
                 fullname=fullname,

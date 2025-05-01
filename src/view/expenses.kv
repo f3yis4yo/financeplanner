@@ -1,0 +1,129 @@
+#:kivy 2.3.1
+<ExpensesScreen>:
+    name: 'expenses_screen'
+    GridLayout:
+        cols: 3
+        spacing: 10
+        padding: 10
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        column_minimum: 0, self.width * 0.10, self.width * 0.80, self.width * 0.10
+
+        # Row A - Title
+        Label:
+            text: ""
+        Label:
+            text: "Add Expense"
+            color: 0, 0, 0, 1
+            font_size: '24sp'
+            bold: True
+        Label:
+            text: ""
+
+        # Row B - Expense Name
+        Label:
+            text: ""
+        Label:
+            text: "Expense Name"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        Label:
+            text: ""
+        TextInput:
+            id: expense_name_input
+            hint_text: "Enter expense name"
+        Label:
+
+        # Row C - Amount
+        Label:
+            text: ""
+        Label:
+            text: "Amount"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        Label:
+            text: ""
+        TextInput:
+            id: amount_input
+            hint_text: "Enter amount"
+            input_filter: 'float'
+        Label:
+
+        # Row D - Category
+        Label:
+            text: ""
+        Label:
+            text: "Category"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        Label:
+            text: ""
+        Spinner:
+            id: category_spinner
+            text: "Choose category"
+            values: ["Food", "Transport", "Utilities", "Entertainment", "Other"]
+            size_hint_x: 1
+        Label:
+
+        # Row E - Date
+        Label:
+            text: ""
+        Label:
+            text: "Date"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        Label:
+            text: ""
+        TextInput:
+            id: date_input
+            hint_text: "YYYY-MM-DD"
+        Label:
+
+        # Row F - Notes
+        Label:
+            text: ""
+        Label:
+            text: "Notes"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        Label:
+            text: ""
+        TextInput:
+            id: notes_input
+            hint_text: "Optional notes"
+        Label:
+
+        # Row G - Button
+        Label:
+            text: ""
+        Button:
+            text: "Add Expense"
+            background_color: 0.2, 0.4, 0.8, 1
+            background_normal: ''
+            on_press: root.submit_expense()
+        Label:

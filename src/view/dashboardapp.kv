@@ -61,22 +61,9 @@
                 text: ''
             Label:
                 text: ''
-            Button:
-                text: 'SET'
-                halign: 'right'
-                font_size: 15
-                size_hint: None, None
-                size: dp(50), dp(30)
-                on_press: root.open_settings
-                background_normal: ''
-                background_color: 0.5, 0.5, 0.5, 1
-                canvas.before:
-                    Color:
-                        rgba: 0.5, 0.5, 0.5, 1
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
-                        radius: [15]
+            Label:
+                text: ''
+                
 
         # Row D: Total Balance box
         GridLayout:
@@ -128,7 +115,7 @@
                 color: 1, 1, 1, 1
                 size_hint: None, None
                 size: dp(100), dp(100)
-                on_press: root.show_add_expense_popup
+                on_press: root.manager.current = 'expenses_screen'
                 canvas.before:
                     Color:
                         rgba: 59/255, 130/255, 246/255, 1
@@ -146,7 +133,7 @@
                 color: 1, 1, 1, 1
                 size_hint: None, None
                 size: dp(100), dp(100)
-                on_press: root.go_to_set_budget
+                on_press: root.manager.current = 'budget_screen'
                 canvas.before:
                     Color:
                         rgba: 34/255, 211/255, 238/255, 1
@@ -164,7 +151,7 @@
                 color: 1, 1, 1, 1
                 size_hint: None, None
                 size: dp(100), dp(100)
-                on_press: root.manager.current = 'report_dashboard_screen'
+                on_press: root.manager.current = 'report_kv_path'
                 canvas.before:
                     Color:
                         rgba: 251/255, 191/255, 36/255, 1

@@ -10,9 +10,11 @@ from kivy.graphics import Color, Rectangle
 from kivy.uix.screenmanager import Screen
 from models.encrypt import hash_password, verify_password
 from models.database import get_session, user
+from kivy.properties import StringProperty
 
 class MySettings(Screen):  # Inherit directly from Screen
     current_user_email = ""
+    login_error = StringProperty('')
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -50,6 +52,7 @@ class MySettings(Screen):  # Inherit directly from Screen
         self.manager.current = 'recover_screen'
 
     def save_new_password(self, instance):
+        self.login_error = ''
         new_password = self.new_password_input.text
         confirm_password = self.confirm_new_password_input.text
 
@@ -65,7 +68,7 @@ class MySettings(Screen):  # Inherit directly from Screen
                         print(f"✅ Password updated successfully for user: {self.current_user_email}")
                         self.manager.current = 'login_screen' # Go back to the login screen
                     else:
-                        print(f"❌ User with email {self.current_user_email} not found.")
+                        self.login_error = f"❌ User with email {self.current_user_email} not found."
                 except Exception as e:
                     session.rollback()
                     print(f"❌ Error updating password: {e}")

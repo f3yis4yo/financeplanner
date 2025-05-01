@@ -9,13 +9,16 @@ from kivy.uix.button import Button
 from models.database import get_session, user
 from models.settings import MySettings
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.properties import StringProperty
 import os
 
 class MyRecover(Screen):
+    login_error = StringProperty('')
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
     def submit_recovery(self):
+        self.login_error = ''
         email = self.ids.user_input.text
         security_question = self.ids.security_question_spinner.text
         security_answer = self.ids.confirm_password_input.text
@@ -35,7 +38,7 @@ class MyRecover(Screen):
                 # Navigate to settings
                 self.manager.current = 'settings_screen'
             else:
-                print("❌ Recovery information incorrect.")
+                self.login_error = "Recovery information incorrect."
 
         except Exception as e:
             print(f"❌ Error during password recovery attempt: {e}")
