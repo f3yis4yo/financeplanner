@@ -1,0 +1,6 @@
+.env/
+./financeplanner.db/
+__pycache__/
+*.pyc
+view/
+finance_view/
