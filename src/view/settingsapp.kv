@@ -2,55 +2,94 @@
 <MySettings>:
     name: 'settings_screen'
     GridLayout:
-        cols: 1
-        padding: 20
+        cols: 3 # Change to 3 columns to match login_app.kv
         spacing: 10
+        padding: 20
         canvas.before:
             Color:
-                rgba: 0.83, 0.83, 0.83, 1 # Light Grey
+                rgba: 1, 1, 1, 1 # White background, same as login_app.kv
             Rectangle:
                 pos: self.pos
                 size: self.size
 
+        column_minimum: 0, self.width * 0.10, self.width * 0.80, self.width * 0.10 # same as login_app.kv
+
+        # Fila A - Título
+        Label:
+            text: "A1" #dummy label
         Label:
             text: 'Password Recovery'
-            font_size: 24
+            font_size: '24sp' # Use sp for font size
             bold: True
             color: 0, 0, 0, 1
             size_hint_y: None
             height: self.texture_size[1] + 20
             halign: 'center'
+        Label:
+            text: "A3" #dummy label
 
+        # Fila B - Instrucción
+        Label:
+            text: "B1"
         Label:
             text: 'Enter New Password'
-            font_size: 18
-            color: 0.2, 0.4, 1, 1 # Blue
+            font_size: '18sp' # Use sp
+            color: 0, 0, 1, 1 # Blue, same as labels in login_app.kv
             size_hint_y: None
             height: self.texture_size[1] + 10
-            halign: 'center'
+            halign: 'left' # Align left, same as other labels
+        Label:
+            text: "B3"
 
-        BoxLayout:
-            orientation: 'horizontal'
-            Label:
-                text: 'New Password:'
-                size_hint_x: 0.4
-                color: 0, 0, 0, 1
-            TextInput:
-                id: new_password_input
-                password: True
-                multiline: False
+        # Fila C - Label Nueva Contraseña
+        Label:
+            text: "C1"
+        Label:
+            text: 'New Password:'
+            size_hint_x: None # Don't use 0.4, let it size to text
+            width: self.texture_size[0] #set the width of the label.
+            color: 0, 0, 1, 1  # Blue, same as login_app.kv
+            halign: 'left'
+        Label:
+            text: "C3"
 
-        BoxLayout:
-            orientation: 'horizontal'
-            Label:
-                text: 'Confirm New Password:'
-                size_hint_x: 0.4
-                color: 0, 0, 0, 1
-            TextInput:
-                id: confirm_new_password_input
-                password: True
-                multiline: False
+        # Fila D - Input Nueva Contraseña
+        Label:
+            text: "D1"
+        TextInput:
+            id: new_password_input
+            password: True
+            multiline: False
+            hint_text: "Enter your new password" # Added hint text
+        Label:
+            text: "D3"
 
+        # Fila E - Label Confirmar Contraseña
+        Label:
+            text: "E1"
+        Label:
+            text: 'Confirm New Password:'
+            size_hint_x: None
+            width: self.texture_size[0]
+            color: 0, 0, 1, 1 # Blue
+            halign: 'left'
+        Label:
+            text: "E3"
+
+        # Fila F - Input Confirmar Contraseña
+        Label:
+            text: "F1"
+        TextInput:
+            id: confirm_new_password_input
+            password: True
+            multiline: False
+            hint_text: "Confirm your new password"
+        Label:
+            text: "F3"
+
+        # Fila G - Botones
+        Label:
+            text: "G1"
         BoxLayout:
             orientation: 'horizontal'
             size_hint_y: None
@@ -62,5 +101,8 @@
                 on_press: root.manager.current = 'recover_screen'
             Button:
                 text: 'Save New Password'
-                background_color: 0.2, 0.5, 1, 1
+                background_color: 0.2, 0.4, 0.8, 1 # Use the blue from login_app
+                background_normal: '' #remove default background
                 on_press: root.save_new_password()
+        Label:
+            text: "G3"

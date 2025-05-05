@@ -8,7 +8,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from sqlalchemy.orm import sessionmaker
 from kivy.lang import Builder # Import Builder
-from .database import user, engine 
+from .database import User, engine 
 from .encrypt import verify_password, hash_password
 from .dashboard import DashboardScreen
 import os
@@ -29,7 +29,7 @@ class MyLogin(Screen):
 
         session = get_session()
         try:
-            found_user = session.query(user).filter(user.fullname == fullname).first()
+            found_user = session.query(User).filter(User.fullname == fullname).first()
             if found_user:
                 if verify_password(password, found_user.password):
                     self.manager.current = 'dashboard_screen'

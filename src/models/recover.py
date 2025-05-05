@@ -6,7 +6,7 @@ from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.spinner import Spinner
 from kivy.uix.button import Button
-from models.database import get_session, user
+from models.database import get_session, User
 from models.settings import MySettings
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.properties import StringProperty
@@ -25,10 +25,10 @@ class MyRecover(Screen):
 
         session = get_session()
         try:
-            found_user = session.query(user).filter(
-                user.email == email,
-                user.security_question == security_question,
-                user.security_answer == security_answer
+            found_user = session.query(User).filter(
+                User.email == email,
+                User.security_question == security_question,
+                User.security_answer == security_answer
             ).first()
 
             if found_user:

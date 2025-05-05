@@ -175,13 +175,16 @@
         Label:
             text: ""
 
-        # Save Button
+        # Row G - Buttons
+        Button:
+            text: "Cancel"
+            background_color: 1, 0, 0, 1  # Red color
+            background_normal: ''
+            on_press: root.cancel()
         Label:
             text: ""
         Button:
             text: "Save Budget"
-            background_color: 0.2, 0.4, 0.8, 1
+            background_color: 0.2, 0.4, 0.8, 1  # Blue color
             background_normal: ''
             on_press: root.save_allocation()
-        Label:
-            text: ""
