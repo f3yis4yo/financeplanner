@@ -127,3 +127,20 @@
             background_normal: ''
             on_press: root.submit_expense()
         Label:
+
+        Label:
+            text: "H1"
+        Button:
+            text: "Back to Dashboard"
+            color: 0, 0, 1, 1
+            background_color: 1, 1, 1, 1
+            background_normal: ''
+            border: (2, 2, 2, 2)  
+            on_press: root.manager.current = 'dashboard_screen'
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 1, 1 
+                Line:
+                    width: 2
+                    rectangle: self.x, self.y, self.width, self.height
+        Label:
