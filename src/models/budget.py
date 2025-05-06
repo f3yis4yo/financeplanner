@@ -4,7 +4,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 import os
 from kivy.uix.popup import Popup
 from kivy.uix.label import Label
-from models.database import Budget, BudgetAllocation, get_session
+from models.database import Budget, BudgetAllocation, get_session, update_or_create_budget, get_current_budget
 from datetime import datetime
 
 # Load the .kv file
@@ -14,7 +14,29 @@ Builder.load_file(os.path.join(kv_dir, '../view/budget.kv'))
 class BudgetScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.session = get_session()
+        self.session = get_session() 
+    def on_pre_enter(self, *args):
+        # pre-fill form with current budget if exists
+        try:
+            current_budget = get_current_budget(user_id = 1) # Replace with actual logged-in user ID and session
+            if current_budget:
+                self.ids.income_input.text = str(current_budget.monthly_income)
+                self.ids.budget_input.text = str(current_budget.monthly_budget)
+
+                #pre-fill allocations ******CHECK THIS****
+                for allocation in current_budget.allocations:
+                    if allocation.category == "Food":
+                        self.ids.food_input.text = str(allocation.amount)
+                    elif allocation.category == "Transport":
+                        self.ids.transport_input.text = str(allocation.amount)
+                    elif allocation.category == "Utilities":
+                        self.ids.utilities_input.text = str(allocation.amount)
+                    elif allocation.category == "Entertainment":
+                        self.ids.entertainment_input.text = str(allocation.amount)
+                    elif allocation.category == "Other":
+                        self.ids.other_input.text = str(allocation.amount) 
+        except Exception as e:
+            print(f"Error pre-filling budget: {e}")
 
     def show_popup(self, title, message):
         popup = Popup(
@@ -113,37 +135,16 @@ class BudgetScreen(Screen):
                 "Entertainment": float(self.ids.entertainment_input.text),
                 "Other": float(self.ids.other_input.text),
             }
-
-            # Create new budget
-            new_budget = Budget(
-                user_id=user_id,
-                monthly_income=income,
-                monthly_budget=budget,
-                start_date=datetime.now().date()
-            )
-            self.session.add(new_budget)
-            self.session.flush()  # This will set the id of new_budget
-
-            # Create budget allocations
-            for category, amount in allocations.items():
-                allocation = BudgetAllocation(
-                    budget_id=new_budget.id,
-                    category=category,
-                    amount=amount
-                )
-                self.session.add(allocation)
-
-            self.session.commit()
-            self.show_popup("Success", "Budget saved successfully!")
+            # Helper fucntion to get current budget 
+            update_or_create_budget(self.session, user_id, income, budget, allocations)
+            self.show_popup("Success", "Budget updated successfull \n& Previous Expenses cleared")
             self.clear_inputs()
             self.manager.current = 'dashboard_screen'
-
         except Exception as e:
-            self.session.rollback()
             self.show_popup("Error", f"Error saving budget: {str(e)}")
-
         finally:
             self.session.close()
+
 
 class BudgetApp(App):
     def build(self):

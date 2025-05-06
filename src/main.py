@@ -1,4 +1,5 @@
 import kivy
+from kivymd.app import MDApp
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
@@ -19,6 +20,7 @@ from models.dashboard import DashboardScreen as Dashboard_Screen
 from models.settings import MySettings
 from models.report_dashboard import ReportDashboard
 from models.budget import BudgetScreen
+
 
 # Define las rutas a los archivos KV
 kv_dir = os.path.dirname(__file__)
@@ -55,7 +57,7 @@ class LoginApp(App):
     def build(self):
         return MyLogin()
 
-class FinancePlannerApp(App):
+class FinancePlannerApp(MDApp):
     def build(self):
         Window.clearcolor = (0.95, 0.95, 0.95)
         sm = ScreenManager()

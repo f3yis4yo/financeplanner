@@ -176,15 +176,29 @@
             text: ""
 
         # Row G - Buttons
-        Button:
-            text: "Cancel"
-            background_color: 1, 0, 0, 1  # Red color
-            background_normal: ''
-            on_press: root.manager.current = 'dashboard_screen'
         Label:
             text: ""
         Button:
-            text: "Save Budget"
-            background_color: 0.2, 0.4, 0.8, 1  # Blue color
+            text: "Add Budget"
+            background_color: 0.2, 0.4, 0.8, 1
             background_normal: ''
             on_press: root.save_allocation()
+        Label:
+
+        # Row H - Buttons
+        Label:
+            text: ""
+        Button:
+            text: "Back to Dashboard"
+            color: 0, 0, 1, 1
+            background_color: 1, 1, 1, 1
+            background_normal: ''
+            border: (2, 2, 2, 2)
+            on_press: root.manager.current = 'dashboard_screen'
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 1, 1 
+                Line:
+                    width: 2
+                    rectangle: self.x, self.y, self.width, self.height
+        Label:

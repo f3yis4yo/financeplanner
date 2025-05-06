@@ -109,6 +109,71 @@ def get_current_budget(user_id):
     finally:
         session.close()
 
+def update_or_create_budget(session, user_id, monthly_income, monthly_budget, allocations):
+    try:
+        #Clear all previous expenses for the user
+        clear_user_expenses(session, user_id)
+
+        # Optain the most recent budget that the user has input
+        existing_budget = (session.query(Budget)
+                           .filter(Budget.user_id == user_id)
+                           .order_by(Budget.start_date.desc())
+                           .first())
+        if existing_budget:
+            #Update the current budget
+            existing_budget.monthly_income = monthly_income
+            existing_budget.monthly_budget = monthly_budget
+
+            # Clear current allocations
+            session.query(BudgetAllocation).filter(
+                BudgetAllocation.budget_id == existing_budget.id
+            ).delete()
+
+            # Add new allocations
+            for category, amount in allocations.items():
+                allocation = BudgetAllocation(
+                    budget_id = existing_budget.id,
+                    category = category,
+                    amount = amount
+                )
+                session.add(allocation)
+
+            budget_id = existing_budget.id
+        else:
+            # Create new budget
+            new_budget = Budget(
+                user_id = user_id,
+                monthly_income = monthly_income,
+                monthly_budget = monthly_budget,
+                start_date = datetime.now().date()
+            )
+            session.add(new_budget)
+            session.flush() # ensure the new budget optains an ID before use
+
+            #Create allocations
+            for category, amount in allocations.items():
+                allocation = BudgetAllocation(
+                    budget_id = new_budget.id,
+                    category = category,
+                    amount = amount
+                )
+                session.add(allocation)
+            budget_id = new_budget.id
+        session.commit()
+        return budget_id
+    except:
+        session.rollback()
+        raise
+
+def clear_user_expenses(session, user_id):
+    try:
+        # Clear all expenses for user once new budget is set
+        session.query(Expense).filter(Expense.user_id == user_id).delete()
+        session.commit()
+    except Exception as e:
+        session.rollback()
+        raise
+
 def get_user_expenses(user_id, limit=None):
     session = get_session()
     try:

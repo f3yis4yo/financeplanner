@@ -1,5 +1,5 @@
 from kivy.lang import Builder
-from kivy.app import App
+from kivymd.app import MDApp
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 import os
@@ -7,6 +7,7 @@ from kivy.uix.popup import Popup
 from kivy.uix.label import Label
 from models.database import Expense, get_session
 from datetime import datetime
+from kivymd.uix.pickers.datepicker import MDDatePicker
 
 # Load the .kv file
 kv_dir = os.path.dirname(__file__)
@@ -74,6 +75,15 @@ class ExpensesScreen(Screen):
         self.clear_inputs()
         self.show_popup("Cancelled", "Operation cancelled. All fields cleared.")
         self.manager.current = 'dashboard_screen'
+    
+    def open_date_picker(self):
+        date_dialog = MDDatePicker()
+        date_dialog.bind(on_save = self.on_date_save)
+        date_dialog.open()
+
+    def on_date_save(self,instance, value, date_range):
+        # Call when user clicks "ok" on date picker
+        self.ids.date_input.text = value.strftime('%Y-%m-%d')
 
     def submit_expense(self):
         if not self.validate_inputs():
@@ -84,9 +94,9 @@ class ExpensesScreen(Screen):
             expense_name = self.ids.expense_name_input.text.strip()
             amount = float(self.ids.amount_input.text)
             category = self.ids.category_spinner.text
-            date = datetime.strptime(self.ids.date_input.text, '%Y-%m-%d').date()
-            print(date)
-            notes = self.ids.notes_input.text.strip() if self.ids.notes_input.text else ""
+            date_str = self.ids.date_input.text.strip() # YYYY-MM-DD format
+            date= datetime.strptime(date_str, '%Y-%m-%d').date() # Change date format to object
+            notes = self.ids.notes_input.text.strip() or "NA"  # Default to "NA" if empty
 
             new_expense = Expense(
                 user_id=user_id,
@@ -94,7 +104,8 @@ class ExpensesScreen(Screen):
                 amount=amount,
                 category=category,
                 date=date,
-                notes=notes
+                notes=notes,
+                created_at=datetime.now() # serves as a timestamp for when the expense was created
             )
 
             self.session.add(new_expense)
@@ -112,7 +123,7 @@ class ExpensesScreen(Screen):
         finally:
             self.session.close()
 
-class ExpensesApp(App):
+class ExpensesApp(MDApp):
     def build(self):
         sm = ScreenManager()
         sm.add_widget(ExpensesScreen())

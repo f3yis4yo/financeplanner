@@ -11,21 +11,6 @@ class DashboardScreen(Screen):
         self.session = get_session()
         self.user_id = 1 # Replace with the actual logged-in user ID
 
-    def show_add_expense_popup(self, instance): 
-        print("Redirect to Add Expense screen")
-
-    def go_to_set_budget(self, instance):
-        print("Redirect to Set Budget screen")
-
-    def show_add_summary_popup(self, instance):
-        print("Redirect to View Reports screen")
-
-    def open_settings(self, instance):
-        print("Open Settings menu")
-
-    def show_add_predictions_popup(self, instance):
-        print("Notifications")
-
     def handle_predictions(self, instance, predictions):
         try:
             prediction_text = ""
@@ -37,25 +22,32 @@ class DashboardScreen(Screen):
         except Exception as e:
             print(f"Error updating predictions: {e}")
             return False
-        
+      
     def on_enter(self):
         """update dashboard using current user data once logged in"""
         self.update_greeting()
         self.update_total_balanced()
         self.update_recent_expenses()
         self.update_notifications()
-    
+  
     def update_greeting(self):
         """update greeting with current name"""
         try:
-            user = self.session.query(User).filter(User.id == self.user_id).first()
-            if user:
-                self.ids.greeting_label.text = f"Hello, {user.fullname}!"
+            # Get the user from the database
+            user = ( self.session.query(User)
+                    .filter(User.id == self.user_id)
+                    .first())
+          
+            if user and user.fullname:
+                # split the full name extract only first name
+                first_name = user.fullname.split()[0]
+                self.ids.greeting_label.text = f"Hello, {first_name}!"
             else:
-                self.ids.greeting_label.text = "Hello @User!"
+                self.ids.greeting_label.text = "Hello, Guest!"
         except Exception as e:
             print(f"Error updating greeting: {e}")
-    
+            self.ids.greeting_label.text = "Hello, Guest!" # as a fallback greeting
+  
     def update_total_balanced(self):
         """calculate and show total balance"""
         try:
@@ -73,7 +65,7 @@ class DashboardScreen(Screen):
             self.ids.total_balance_label.text = f"${total_balance:,.2f}"
         except Exception as e:
             print(f"Error updating total balance: {e}")
-    
+  
     def update_recent_expenses(self):
         """Display the 5 most recent expenses"""
         try:
@@ -93,7 +85,7 @@ class DashboardScreen(Screen):
             self.ids.recent_expenses_label.text = recent_expenses_text or "No recent expenses"
         except Exception as e:
             print(f"Error updating recent expenses: {e}")
-    
+  
     def update_notifications(self):
         """Display notifications based on budget limit and expenses"""
         try:
@@ -107,12 +99,12 @@ class DashboardScreen(Screen):
             total_expenses = sum(exp.amount for exp in expenses)
             #create notification messages
             notifications = []
-            if total_expenses >= 0.5 * budget.monthly_budget: 
-                notifications.append(" Be careful you have spent over 50% of your budget")
-            if total_expenses >= 0.8 * budget.monthly_budget:
-                notifications.append(" Warning you have spent over 80% of your budget")
             if total_expenses > budget.monthly_budget:
-                notifications.append(" Failed you have exceeded your budget!")
+                notifications.append(" Failed you have exceeded your budget!\n Please create a new Budget Goal")
+            elif total_expenses >= 0.8 * budget.monthly_budget:
+                notifications.append(" Warning you have spent over 80% of your budget")
+            elif total_expenses >= 0.5 * budget.monthly_budget: 
+                notifications.append(" Be careful you have spent over 50% of your budget")
 
             #Display notifications
             self.ids.notifications_label.text = "\n".join(notifications) or "No Notifications at this moment"
@@ -122,7 +114,7 @@ class DashboardScreen(Screen):
     def logout(self):
         """Handles user logout"""
         print("Logging out...")
-        App.get_running_app().stop()    
+        App.get_running_app().stop()  
 
 class BudgieBudget(App):
     def build(self):

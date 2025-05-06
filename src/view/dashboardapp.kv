@@ -5,42 +5,53 @@
         cols: 3
         spacing: 10
         padding: 10
+        size_hint_x: 1
         canvas.before: 
             Color:
                 rgba: 0.83, 0.83, 0.83, 1  #app background_color
             Rectangle:
                 pos: self.pos
                 size: self.size
-        column_minimum: 0, self.width * 0.10, self.width * 0.80, self.width * 0.10
+        #column_minimum: self.width * 0.1, self.width * 0.8, self.width * 0.1
+          
 
         # Row A: Title "BudgieBudget"
         Label:
             text: ""
+            size_hint_x: None
+            width: 0 
         Label:
             text: 'BudgieBudget'
             halign: 'center'
             color: 0, 0, 0, 1    
             bold: True    
-            font_size: 24     
+            font_size: 30     
         Label:
-            text: ""    
+            text: ""
+            size_hint_x: None
+            width: 0   
 
         # Row B: Subtitle "Dashboard"
         Label:
             text: ""
+            size_hint_x: None
+            width: 0 
         Label:
             text: 'Dashboard'
-            halign: 'center'    
-            font_name: 'Arial'    
-            font_size: 18    
+            halign: 'center'        
+            font_size: 25   
             bold: True    
-            color: 0, 0, 0, 1        
+            color: 0, 0, 0, 1       
         Label:
-            text: ""        
+            text: ""
+            size_hint_x: None
+            width: 0        
     
         # Row C: C1 Hello @username! 
         Label:
-            text: ''    
+            text: ""
+            size_hint_x: None
+            width: 0     
         Label:    
             id: greeting_label    
             text: 'Hello @User!'
@@ -48,12 +59,16 @@
             font_name: 'Arial'    
             font_size: 15    
             color: 0, 0, 0, 1    
-        Label:    
-            text: ''    
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0    
         
         # Row D: Total Balance box
-        Label: 
+        Label:
             text: ""
+            size_hint_x: None
+            width: 0 
         BoxLayout:
             orientation: 'vertical'
             padding: 10    
@@ -72,34 +87,30 @@
             Label:
                 id: total_balance_label
                 text: '$0.00'
-                font_size: 22
+                font_size: 20
                 bold: True
                 color: 0, 0, 0, 1
         Label:
             text: ""
+            size_hint_x: None
+            width: 0 
 
-        #Row E: spacing
-        Label: 
-            text: ""
-        Label: 
-            text: "" 
-        Label: 
-            text: "" 
-        
         # Row F: Main buttons
         Label:
             text: ""
+            size_hint_x: None
+            width: 0 
         GridLayout:
             cols: 3
             spacing: 20
             Button:
-                text: "➕\nAdd \nExpense"
+                text: "➕\n  Add \nExpense"
                 font_size: 15
                 background_normal: ''
                 background_color: 59/255, 130/255, 246/255, 1
                 color: 1, 1, 1, 1
                 size_hint_y: None
-                height: dp(100)
+                height: dp(70)
                 on_press: root.manager.current = 'expenses_screen'
                 canvas.before:
                     Color:
@@ -109,13 +120,13 @@
                         size: self.size
                         radius: [10]
             Button:
-                text: "💰\nSet \nBudget"
+                text: "💰\n  Set \nBudget"
                 font_size: 15
                 background_normal: ''
                 background_color: 34/255, 211/255, 238/255, 1
                 color: 1, 1, 1, 1
                 size_hint_y: None
-                height: dp(100)
+                height: dp(70)
                 on_press: root.manager.current = 'budget_screen'
                 canvas.before:
                     Color:
@@ -125,13 +136,13 @@
                         size: self.size
                         radius: [10]
             Button:
-                text: "📊\nView \nReports"
+                text: "📊\n  View \nReports"
                 font_size: 15
                 background_normal: ''
                 background_color: 251/255, 191/255, 36/255, 1
                 color: 1, 1, 1, 1
                 size_hint_y: None
-                height: dp(100)
+                height: dp(70)
                 on_press: root.manager.current = 'report_kv_path'
                 canvas.before:
                     Color:
@@ -142,21 +153,29 @@
                         radius: [10]
         Label:
             text: ""
-
+            size_hint_x: None
+            width: 0 
+        
         # Row G: Recent Expenses Subtitle
         Label:
             text: ""
+            size_hint_x: None
+            width: 0 
         Label:
             text: 'Recent Expenses'    
-            font_size: '18sp'    
-            bold: True    
+            font_size: 18    
+            bold: True      
             color: 0, 0, 0, 1    
-        Label:   
-            text: ""    
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0     
         
         # Row H: Recent Expenses box
         Label:
             text: ""
+            size_hint_x: None
+            width: 0 
         BoxLayout:    
             orientation: 'vertical'        
             padding: 10    
@@ -172,23 +191,31 @@
                 text: "No recent expenses"   
                 font_size: 13    
                 color: 0, 0, 0, 1    
-        Label:        
-            text: ""    
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0     
 
         # Row I: Notifications Subtitle
         Label:
-            text: ""    
+            text: ""
+            size_hint_x: None
+            width: 0    
         Label:
             text: 'Notifications'
-            font_size: 18    
+            font_size: 18   
             bold: True    
             color: 0, 0, 0, 1
-        Label:    
-            text: ""   
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0    
 
         # Row J: Notifications box
         Label:
             text: ""
+            size_hint_x: None
+            width: 0 
         BoxLayout:    
             orientation: 'vertical'    
             padding: 10
@@ -203,21 +230,20 @@
                 id: notifications_label # Example ID    
                 text: 'No notifications at this time.'    
                 font_size: 13    
-                color: 0, 0, 0, 1    
-
-        #Row K: spacing
-        Label: 
-            text: ""
-        Label: 
-            text: "" 
-        Label: 
-            text: ""
-
-        # Row L: Logout button
+                color: 0, 0, 0, 1
         Label:
             text: ""
+            size_hint_x: None
+            width: 0    
+
+        # Row K: Logout button
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0
         Button:   
-            text: 'Logout'  
+            text: 'Logout'
+            size_hint_x: 1  
             color: 1, 1, 1,  
             background_color: 248/255, 113/255, 113/255, 1   
             background_normal: ''   
@@ -230,15 +256,22 @@
                     pos: self.pos    
                     size: self.size    
                     radius: [10]    
-        Label:    
-            text: ""    
-
-        # Row M: Year 2025
         Label:
             text: ""
+            size_hint_x: None
+            width: 0   
+
+        # Row L: Year 2025
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0
         Label:
             text: '2025'    
+            size_hint_x: 1
             color: 0, 0, 0, 1    
             font_size: 14        
-        Label:    
-            text: ''    
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0    
