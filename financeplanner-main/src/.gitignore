@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+venv/
+finance_venv/
+./financeplanner.db
+../financeplanner.db
+models/.env

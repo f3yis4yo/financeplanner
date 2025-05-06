@@ -12,12 +12,94 @@
 
     column_minimum: 0, self.width * 0.10, self.width * 0.80, self.width * 0.10
 
+<<<<<<< HEAD
     # Fila A - Título
     Label:
         text: "A1"
     Label:
         text: "BudgieBudget"
         color: 0, 0, 0, 1
+=======
+        # Fila A - Título
+        Label:
+            text: "A1"
+        Label:
+            text: "BudgieBudget"
+            color: 0, 0, 0, 1
+            font_size: '24sp'
+            bold: True
+        Label:
+            text: "A3"
+
+        # Fila B
+        Label:
+            text: "B1"
+        Label:
+            text: "Login"
+            color: 0, 0, 0, 1
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila C
+        Label:
+            text: "C1"
+        Label:
+            text: "Username"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila D
+        Label:
+            text: "D1"
+        TextInput:
+            id: user_input
+            hint_text: "Enter your username"
+        Label:
+
+        # Fila E
+        Label:
+            text: "E1"
+        Label:
+            text: "Password"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila F
+        Label:
+            text: "F1"
+        TextInput:
+            id: password_input
+            hint_text: "Enter your password"
+            password: True
+        Label:
+
+        Label:
+            text: "G1"
+        Label:
+            text: root.login_error
+            color: 1, 0, 0, 1 # Color rojo para indicar error
+            halign: 'center'
+            size_hint_y: None
+            height: 20
+        
+        Label:
+
+        # Fila G
+        Label:
+            text: "G1"
+        Button:
+            text: "Login"
+            background_color: 0.2, 0.4, 0.8, 1
+            background_normal: ''
+            on_press: root.do_login()
+>>>>>>> rebeca_cardenas
         
         font_size: '24sp'
         bold: True
