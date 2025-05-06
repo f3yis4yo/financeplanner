@@ -9,6 +9,8 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.image import Image
 from kivy.core.window import Window
 from kivy.lang import Builder
+from kivy.uix.screenmanager import ScreenManager, Screen
+from report_dashboard import ReportDashboard
 import os
 from models.expenses import AddExpensePopup
 from models.predictions import PredictionApp
@@ -17,6 +19,8 @@ from models.login import MyLogin
 from models.recover import MyRecover as RecoverScreen
 from models.dashboard import DashboardScreen as Dashboard_Screen
 from models.settings import MySettings
+from models.report_dashboard import ReportDashboard
+
 
 # Define las rutas a los archivos KV
 kv_dir = os.path.dirname(__file__)
@@ -25,13 +29,14 @@ register_kv_path = os.path.join(kv_dir, "view", "registerapp.kv")
 recover_kv_path = os.path.join(kv_dir, "view", "recoverapp.kv")
 dashboard_kv_path = os.path.join(kv_dir, "view", "dashboardapp.kv")
 settings_kv_path = os.path.join(kv_dir, '../view/settingsapp.kv')
-
+report_kv_path = os.path.join(kv_dir, '../view/reportdashboardapp.kv')
 try:
     Builder.load_file(login_kv_path)
     Builder.load_file(register_kv_path)
     Builder.load_file(recover_kv_path)
     Builder.load_file(dashboard_kv_path)
     Builder.load_file(settings_kv_path)
+    Builder.load_file(report_kv_path)
 except FileNotFoundError as e:
     print(f"Error: KV file not found: {e}")
 
@@ -56,11 +61,19 @@ class FinancePlannerApp(App):
         recover_screen = RecoverScreen(name='recover_screen')
         dashboard_screen = Dashboard_Screen(name='dashboard_screen')
         settings_screen = MySettings(name='settings_screen')
+        #report_screen = ReportDashboard(name= 'report_screen')
+
+class ReportScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.add_widget(ReportDashboard())
         sm.add_widget(login_screen)
         sm.add_widget(register_screen)
         sm.add_widget(recover_screen)
         sm.add_widget(dashboard_screen)
         sm.add_widget(settings_screen)
+        sm.add_widget(ReportScreen(name= 'report_screen'))
+        sm.add_widget(DashboardScreen(name='dashboard'))
         return sm
 
 if __name__ == '__main__':
