@@ -7,10 +7,6 @@ from kivy.uix.label import Label
 from models.database import Budget, BudgetAllocation, get_session
 from datetime import datetime
 
-# Load the .kv file
-kv_dir = os.path.dirname(__file__)
-Builder.load_file(os.path.join(kv_dir, '../view/budget.kv'))
-
 class BudgetScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

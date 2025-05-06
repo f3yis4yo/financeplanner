@@ -5,12 +5,7 @@ from kivy.metrics import dp
 from models.database import get_session, User, Budget, Expense, get_current_budget, get_user_expenses
 from kivy.properties import StringProperty
 import os
-<<<<<<< HEAD
-from datetime import datetime
-=======
-from report_dashboard import ReportDashboard
 from models.report_dashboard import ReportDashboard
->>>>>>> origin
 
 class DashboardScreen(Screen):
     username = StringProperty('@User!')
