@@ -1,17 +1,21 @@
+# dashboard.py
 from kivy.app import App
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.metrics import dp
 from models.database import get_session, User, Budget, Expense, get_current_budget, get_user_expenses
+from kivy.properties import StringProperty
 import os
 from datetime import datetime
 
 class DashboardScreen(Screen):
+    username = StringProperty('@User!')
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.session = get_session()
         self.user_id = 1 # Replace with the actual logged-in user ID
 
-    def show_add_expense_popup(self, instance): 
+    def show_add_expense_popup(self, instance):
         print("Redirect to Add Expense screen")
 
     def go_to_set_budget(self, instance):
@@ -37,25 +41,25 @@ class DashboardScreen(Screen):
         except Exception as e:
             print(f"Error updating predictions: {e}")
             return False
-        
+
     def on_enter(self):
         """update dashboard using current user data once logged in"""
         self.update_greeting()
         self.update_total_balanced()
         self.update_recent_expenses()
         self.update_notifications()
-    
+
     def update_greeting(self):
         """update greeting with current name"""
         try:
-            user = self.session.query(User).filter(User.id == self.user_id).first()
+            user = self.session.query(User).filter(User.fullname == self.username).first()
             if user:
                 self.ids.greeting_label.text = f"Hello, {user.fullname}!"
             else:
-                self.ids.greeting_label.text = "Hello @User!"
+                self.ids.greeting_label.text = f"Hello, {self.username}!"
         except Exception as e:
             print(f"Error updating greeting: {e}")
-    
+
     def update_total_balanced(self):
         """calculate and show total balance"""
         try:
@@ -73,7 +77,7 @@ class DashboardScreen(Screen):
             self.ids.total_balance_label.text = f"${total_balance:,.2f}"
         except Exception as e:
             print(f"Error updating total balance: {e}")
-    
+
     def update_recent_expenses(self):
         """Display the 5 most recent expenses"""
         try:
@@ -93,7 +97,7 @@ class DashboardScreen(Screen):
             self.ids.recent_expenses_label.text = recent_expenses_text or "No recent expenses"
         except Exception as e:
             print(f"Error updating recent expenses: {e}")
-    
+
     def update_notifications(self):
         """Display notifications based on budget limit and expenses"""
         try:
@@ -107,7 +111,7 @@ class DashboardScreen(Screen):
             total_expenses = sum(exp.amount for exp in expenses)
             #create notification messages
             notifications = []
-            if total_expenses >= 0.5 * budget.monthly_budget: 
+            if total_expenses >= 0.5 * budget.monthly_budget:
                 notifications.append(" Be careful you have spent over 50% of your budget")
             if total_expenses >= 0.8 * budget.monthly_budget:
                 notifications.append(" Warning you have spent over 80% of your budget")
@@ -122,7 +126,7 @@ class DashboardScreen(Screen):
     def logout(self):
         """Handles user logout"""
         print("Logging out...")
-        App.get_running_app().stop()    
+        App.get_running_app().stop()
 
 class BudgieBudget(App):
     def build(self):

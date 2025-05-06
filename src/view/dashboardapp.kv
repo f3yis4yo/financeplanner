@@ -5,7 +5,7 @@
         cols: 3
         spacing: 10
         padding: 10
-        canvas.before: 
+        canvas.before:
             Color:
                 rgba: 0.83, 0.83, 0.83, 1  #app background_color
             Rectangle:
@@ -19,56 +19,56 @@
         Label:
             text: 'BudgieBudget'
             halign: 'center'
-            color: 0, 0, 0, 1    
-            bold: True    
-            font_size: 24     
+            color: 0, 0, 0, 1
+            bold: True
+            font_size: 24
         Label:
-            text: ""    
+            text: ""
 
         # Row B: Subtitle "Dashboard"
         Label:
             text: ""
         Label:
             text: 'Dashboard'
-            halign: 'center'    
-            font_name: 'Arial'    
-            font_size: 18    
-            bold: True    
-            color: 0, 0, 0, 1        
+            halign: 'center'
+            font_name: 'Arial'
+            font_size: 18
+            bold: True
+            color: 0, 0, 0, 1
         Label:
-            text: ""        
-    
-        # Row C: C1 Hello @username! 
+            text: ""
+
+        # Row C: C1 Hello @username!
         Label:
-            text: ''    
-        Label:    
-            id: greeting_label    
-            text: 'Hello @User!'
-            halign: 'left'    
-            font_name: 'Arial'    
-            font_size: 15    
-            color: 0, 0, 0, 1    
-        Label:    
-            text: ''    
-        
+            text: ''
+        Label:
+            id: greeting_label
+            text: f'Hello, {root.username}'
+            halign: 'left'
+            font_name: 'Arial'
+            font_size: 15
+            color: 0, 0, 0, 1
+        Label:
+            text: ''
+
         # Row D: Total Balance box
-        Label: 
+        Label:
             text: ""
         BoxLayout:
             orientation: 'vertical'
-            padding: 10    
-            canvas.before:    
+            padding: 10
+            canvas.before:
                 Color:
-                    rgba: 0.95, 0.95, 0.95, 1    
-                RoundedRectangle:    
+                    rgba: 0.95, 0.95, 0.95, 1
+                RoundedRectangle:
                     pos: self.pos
                     size: self.size
-                    radius: [10]        
+                    radius: [10]
             Label:
                 text: 'Total Balance'
-                font_size: 14    
-                halign: 'left'    
-                color: 0.2, 0.4, 1, 1    
+                font_size: 14
+                halign: 'left'
+                color: 0.2, 0.4, 1, 1
             Label:
                 id: total_balance_label
                 text: '$0.00'
@@ -79,13 +79,13 @@
             text: ""
 
         #Row E: spacing
-        Label: 
+        Label:
             text: ""
-        Label: 
-            text: "" 
-        Label: 
-            text: "" 
-        
+        Label:
+            text: ""
+        Label:
+            text: ""
+
         # Row F: Main buttons
         Label:
             text: ""
@@ -147,98 +147,98 @@
         Label:
             text: ""
         Label:
-            text: 'Recent Expenses'    
-            font_size: '18sp'    
-            bold: True    
-            color: 0, 0, 0, 1    
-        Label:   
-            text: ""    
-        
+            text: 'Recent Expenses'
+            font_size: '18sp'
+            bold: True
+            color: 0, 0, 0, 1
+        Label:
+            text: ""
+
         # Row H: Recent Expenses box
         Label:
             text: ""
-        BoxLayout:    
-            orientation: 'vertical'        
-            padding: 10    
-            canvas.before:    
-                Color:    
-                    rgba: 1, 1, 1, 1    
-                RoundedRectangle:    
-                    pos: self.pos    
-                    size: self.size    
-                    radius: [10]    
-            Label:    
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 10
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [10]
+            Label:
                 id: recent_expenses_label
-                text: "No recent expenses"   
-                font_size: 13    
-                color: 0, 0, 0, 1    
-        Label:        
-            text: ""    
+                text: "No recent expenses"
+                font_size: 13
+                color: 0, 0, 0, 1
+        Label:
+            text: ""
 
         # Row I: Notifications Subtitle
         Label:
-            text: ""    
+            text: ""
         Label:
             text: 'Notifications'
-            font_size: 18    
-            bold: True    
+            font_size: 18
+            bold: True
             color: 0, 0, 0, 1
-        Label:    
-            text: ""   
+        Label:
+            text: ""
 
         # Row J: Notifications box
         Label:
             text: ""
-        BoxLayout:    
-            orientation: 'vertical'    
+        BoxLayout:
+            orientation: 'vertical'
             padding: 10
-            canvas.before:    
-                Color:    
-                    rgba: 1, 1, 1, 1    
-                RoundedRectangle:    
-                    pos: self.pos    
-                    size: self.size    
-                    radius: [10]    
-            Label:    
-                id: notifications_label # Example ID    
-                text: 'No notifications at this time.'    
-                font_size: 13    
-                color: 0, 0, 0, 1    
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [10]
+            Label:
+                id: notifications_label # Example ID
+                text: 'No notifications at this time.'
+                font_size: 13
+                color: 0, 0, 0, 1
 
         #Row K: spacing
-        Label: 
+        Label:
             text: ""
-        Label: 
-            text: "" 
-        Label: 
+        Label:
+            text: ""
+        Label:
             text: ""
 
         # Row L: Logout button
         Label:
             text: ""
-        Button:   
-            text: 'Logout'  
-            color: 1, 1, 1,  
-            background_color: 248/255, 113/255, 113/255, 1   
-            background_normal: ''   
-            font_size: 16          
-            on_press: root.manager.current = 'login_screen'   
-            canvas.before:    
-                Color:    
-                    rgba: 248/255, 113/255, 113/255, 1    
-                RoundedRectangle:    
-                    pos: self.pos    
-                    size: self.size    
-                    radius: [10]    
-        Label:    
-            text: ""    
+        Button:
+            text: 'Logout'
+            color: 1, 1, 1, 1
+            background_color: 248/255, 113/255, 113/255, 1
+            background_normal: ''
+            font_size: 16
+            on_press: root.manager.current = 'my_login'
+            canvas.before:
+                Color:
+                    rgba: 248/255, 113/255, 113/255, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [10]
+        Label:
+            text: ""
 
         # Row M: Year 2025
         Label:
             text: ""
         Label:
-            text: '2025'    
-            color: 0, 0, 0, 1    
-            font_size: 14        
-        Label:    
-            text: ''    
+            text: '2025'
+            color: 0, 0, 0, 1
+            font_size: 14
+        Label:
+            text: ''

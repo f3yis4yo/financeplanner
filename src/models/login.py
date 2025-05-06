@@ -1,3 +1,4 @@
+# login.py
 from kivy.uix.screenmanager import Screen
 from kivy.properties import StringProperty
 from kivy.app import App
@@ -8,7 +9,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 from sqlalchemy.orm import sessionmaker
 from kivy.lang import Builder # Import Builder
-from .database import User, engine 
+from .database import User, engine
 from .encrypt import verify_password, hash_password
 from .dashboard import DashboardScreen
 import os
@@ -32,6 +33,9 @@ class MyLogin(Screen):
             found_user = session.query(User).filter(User.fullname == fullname).first()
             if found_user:
                 if verify_password(password, found_user.password):
+                    # Access the DashboardScreen instance and update the username
+                    dashboard_screen = self.manager.get_screen('dashboard_screen')
+                    dashboard_screen.username = fullname
                     self.manager.current = 'dashboard_screen'
                 else:
                     self.login_error = "Incorrect password."
@@ -61,19 +65,13 @@ class RegisterScreen(Screen):
         layout.add_widget(Label(text='Pantalla de Registro'))
         self.add_widget(layout)
 
-class DashboardScreen(Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        layout = BoxLayout(orientation='vertical')
-        layout.add_widget(Label(text='Dashboard'))
-        self.add_widget(layout)
-
 class TestApp(App):
     def build(self):
         # Load KV file here
         Builder.load_file("loginapp.kv")
-        sm = ScreenManager() 
-        sm.add_widget(DashboardScreen(name='dashboard_screen'))
+        sm = ScreenManager()
+        dashboard_screen = DashboardScreen(name='dashboard_screen')
+        sm.add_widget(dashboard_screen)
         sm.add_widget(LoginScreen(name='my_login'))
         sm.add_widget(MainMenuScreen(name='main_menu_screen'))
         sm.add_widget(RegisterScreen(name='register_screen'))
