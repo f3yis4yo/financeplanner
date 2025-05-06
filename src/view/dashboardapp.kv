@@ -1,4 +1,5 @@
 #:kivy 2.3.1
+
 <DashboardScreen>:
     name: 'dashboard_screen'
     GridLayout:
@@ -7,13 +8,13 @@
         padding: 10
         canvas.before:
             Color:
-                rgba: 0.83, 0.83, 0.83, 1  #app background_color
+                rgba: 0.83, 0.83, 0.83, 1
             Rectangle:
                 pos: self.pos
                 size: self.size
         column_minimum: 0, self.width * 0.10, self.width * 0.80, self.width * 0.10
 
-        # Row A: Title "BudgieBudget"
+        # Row A: Title
         Label:
             text: ""
         Label:
@@ -25,7 +26,7 @@
         Label:
             text: ""
 
-        # Row B: Subtitle "Dashboard"
+        # Row B: Subtitle
         Label:
             text: ""
         Label:
@@ -38,7 +39,7 @@
         Label:
             text: ""
 
-        # Row C: C1 Hello @username!
+        # Row C: Greeting
         Label:
             text: ''
         Label:
@@ -78,7 +79,7 @@
         Label:
             text: ""
 
-        #Row E: spacing
+        # Row E: spacing
         Label:
             text: ""
         Label:
@@ -92,15 +93,14 @@
         GridLayout:
             cols: 3
             spacing: 20
-            Button:
-                text: "➕\nAdd \nExpense"
-                font_size: 15
-                background_normal: ''
-                background_color: 59/255, 130/255, 246/255, 1
-                color: 1, 1, 1, 1
+
+            # Modified Add Expense button with image
+            BoxLayout:
+                orientation: 'vertical'
                 size_hint_y: None
                 height: dp(100)
-                on_press: root.manager.current = 'expenses_screen'
+                padding: dp(5)
+                spacing: dp(5)
                 canvas.before:
                     Color:
                         rgba: 59/255, 130/255, 246/255, 1
@@ -108,6 +108,21 @@
                         pos: self.pos
                         size: self.size
                         radius: [10]
+                Image:
+                    source: 'images/icons8-add-48.png'
+                    size_hint: None, None
+                    size: dp(40), dp(40)
+                    allow_stretch: True
+                Button:
+                    text: "Add\nExpense"
+                    font_size: 15
+                    background_normal: ''
+                    background_color: 0, 0, 0, 0
+                    color: 1, 1, 1, 1
+                    size_hint_y: None
+                    height: dp(40)
+                    on_press: root.manager.current = 'expenses_screen'
+
             Button:
                 text: "💰\nSet \nBudget"
                 font_size: 15
@@ -124,6 +139,7 @@
                         pos: self.pos
                         size: self.size
                         radius: [10]
+
             Button:
                 text: "📊\nView \nReports"
                 font_size: 15
@@ -200,12 +216,12 @@
                     size: self.size
                     radius: [10]
             Label:
-                id: notifications_label # Example ID
+                id: notifications_label
                 text: 'No notifications at this time.'
                 font_size: 13
                 color: 0, 0, 0, 1
 
-        #Row K: spacing
+        # Row K: spacing
         Label:
             text: ""
         Label:
@@ -233,7 +249,7 @@
         Label:
             text: ""
 
-        # Row M: Year 2025
+        # Row M: Year
         Label:
             text: ""
         Label:
@@ -241,4 +257,4 @@
             color: 0, 0, 0, 1
             font_size: 14
         Label:
-            text: ''
+            text: ""
