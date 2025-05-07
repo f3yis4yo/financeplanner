@@ -1,4 +1,5 @@
 from kivy.lang import Builder
+from kivy.app import App
 from kivymd.app import MDApp
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -90,7 +91,7 @@ class ExpensesScreen(Screen):
             return
 
         try:
-            user_id = 1  # Replace with actual logged-in user ID
+            user_id = App.get_running_app().user_id  # Replace with actual logged-in user ID
             expense_name = self.ids.expense_name_input.text.strip()
             amount = float(self.ids.amount_input.text)
             category = self.ids.category_spinner.text

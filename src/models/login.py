@@ -32,6 +32,7 @@ class MyLogin(Screen):
             found_user = session.query(User).filter(User.fullname == fullname).first()
             if found_user:
                 if verify_password(password, found_user.password):
+                    App.get_running_app().user_id = found_user.id # ->saves the user ID for the application session
                     self.manager.current = 'dashboard_screen'
                 else:
                     self.login_error = "Incorrect password."

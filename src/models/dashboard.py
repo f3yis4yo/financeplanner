@@ -1,3 +1,4 @@
+from kivymd.app import MDApp
 from kivy.app import App
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.metrics import dp
@@ -9,7 +10,7 @@ class DashboardScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.session = get_session()
-        self.user_id = 1 # Replace with the actual logged-in user ID
+        self.user_id = None # Initialize as None / the actual logged-in user ID
 
     def handle_predictions(self, instance, predictions):
         try:
@@ -25,6 +26,12 @@ class DashboardScreen(Screen):
       
     def on_enter(self):
         """update dashboard using current user data once logged in"""
+        # Get the user ID from the app instance
+        # Retrieve the dynamic user id
+        self.user_id = getattr(App.get_running_app(), 'user_id', None) # Replace with the actual logged-in user ID
+        if not self.user_id:
+            self.ids.greeting_label.text = "Hello, Guest!"
+            return
         self.update_greeting()
         self.update_total_balanced()
         self.update_recent_expenses()
@@ -99,7 +106,7 @@ class DashboardScreen(Screen):
             total_expenses = sum(exp.amount for exp in expenses)
             #create notification messages
             notifications = []
-            if total_expenses > budget.monthly_budget:
+            if total_expenses >= budget.monthly_budget: 
                 notifications.append(" Failed you have exceeded your budget!\n Please create a new Budget Goal")
             elif total_expenses >= 0.8 * budget.monthly_budget:
                 notifications.append(" Warning you have spent over 80% of your budget")
@@ -116,7 +123,7 @@ class DashboardScreen(Screen):
         print("Logging out...")
         App.get_running_app().stop()  
 
-class BudgieBudget(App):
+class BudgieBudget(MDApp):
     def build(self):
         sm = ScreenManager()
         sm.add_widget(DashboardScreen(name='dashboard'))
@@ -124,3 +131,4 @@ class BudgieBudget(App):
 
 if __name__ == '__main__':
     BudgieBudget().run()
+    

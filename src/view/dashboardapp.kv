@@ -23,7 +23,7 @@
         Label:
             text: 'BudgieBudget'
             halign: 'center'
-            color: 0, 0, 0, 1    
+            color: 0.2, 0.6, 1, 1  # Light blue   
             bold: True    
             font_size: 30     
         Label:
@@ -71,7 +71,9 @@
             width: 0 
         BoxLayout:
             orientation: 'vertical'
-            padding: 10    
+            padding: 10
+            height: dp(50)
+            size_hint_y: None    
             canvas.before:    
                 Color:
                     rgba: 0.95, 0.95, 0.95, 1    
@@ -95,66 +97,80 @@
             size_hint_x: None
             width: 0 
 
-        # Row F: Main buttons
+        # Row F: Main buttons (side by side, one row)
         Label:
             text: ""
             size_hint_x: None
             width: 0 
-        GridLayout:
-            cols: 3
-            spacing: 20
-            Button:
-                text: "➕\n  Add \nExpense"
-                font_size: 15
-                background_normal: ''
-                background_color: 59/255, 130/255, 246/255, 1
-                color: 1, 1, 1, 1
-                size_hint_y: None
-                height: dp(70)
-                on_press: root.manager.current = 'expenses_screen'
-                canvas.before:
-                    Color:
-                        rgba: 59/255, 130/255, 246/255, 1
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
-                        radius: [10]
-            Button:
-                text: "💰\n  Set \nBudget"
-                font_size: 15
-                background_normal: ''
-                background_color: 34/255, 211/255, 238/255, 1
-                color: 1, 1, 1, 1
-                size_hint_y: None
-                height: dp(70)
-                on_press: root.manager.current = 'budget_screen'
-                canvas.before:
-                    Color:
-                        rgba: 34/255, 211/255, 238/255, 1
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
-                        radius: [10]
-            Button:
-                text: "📊\n  View \nReports"
-                font_size: 15
-                background_normal: ''
-                background_color: 251/255, 191/255, 36/255, 1
-                color: 1, 1, 1, 1
-                size_hint_y: None
-                height: dp(70)
-                on_press: root.manager.current = 'report_kv_path'
-                canvas.before:
-                    Color:
-                        rgba: 251/255, 191/255, 36/255, 1
-                    RoundedRectangle:
-                        pos: self.pos
-                        size: self.size
-                        radius: [10]
+        # Add expense button    
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 30
+            size_hint_y: None
+            height: dp(130)
+            MDRaisedButton:
+                md_bg_color: 59/255, 130/255, 246/255, 1
+                on_release: root.manager.current = 'expenses_screen'
+                size_hint: None, None
+                size: dp(120), dp(120)
+                pos_hint: {"center_x": .5}
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: 5
+                    padding: 5
+                    Image:
+                        source: 'images/add.png'
+                        size_hint_y: 0.6
+                    MDLabel:
+                        text: "Add\nExpense"
+                        halign: 'center'
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        font_style: "Button"
+            # Set budget button                
+            MDRaisedButton:
+                md_bg_color: 34/255, 211/255, 238/255, 1
+                on_release: root.manager.current = 'budget_screen'
+                size_hint: None, None
+                size: dp(120), dp(120)
+                pos_hint: {"center_x": .5}
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: 5
+                    padding: 5
+                    Image:
+                        source: 'images/budget.png'
+                        size_hint_y: 0.6
+                    MDLabel:
+                        text: "Set\nBudget"
+                        halign: 'center'
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        font_style: "Button"
+            # View report button             
+            MDRaisedButton:
+                md_bg_color: 251/255, 191/255, 36/255, 1
+                on_release: root.manager.current = 'report_screen'
+                size_hint: None, None
+                size: dp(120), dp(120)
+                pos_hint: {"center_x": .5}
+                BoxLayout:
+                    orientation: 'vertical'
+                    spacing: 5
+                    padding: 5
+                    Image:
+                        source: 'images/report.png'
+                        size_hint_y: 0.6
+                    MDLabel:
+                        text: "View\nReports"
+                        halign: 'center'
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        font_style: "Button"
         Label:
             text: ""
             size_hint_x: None
-            width: 0 
+            width: 0
         
         # Row G: Recent Expenses Subtitle
         Label:
@@ -178,7 +194,9 @@
             width: 0 
         BoxLayout:    
             orientation: 'vertical'        
-            padding: 10    
+            padding: 10  
+            height: dp(80)
+            size_hint_y: None  
             canvas.before:    
                 Color:    
                     rgba: 1, 1, 1, 1    
@@ -203,7 +221,7 @@
             width: 0    
         Label:
             text: 'Notifications'
-            font_size: 18   
+            font_size: 18    
             bold: True    
             color: 0, 0, 0, 1
         Label:
@@ -219,6 +237,8 @@
         BoxLayout:    
             orientation: 'vertical'    
             padding: 10
+            height: dp(50)
+            size_hint_y: None
             canvas.before:    
                 Color:    
                     rgba: 1, 1, 1, 1    
@@ -243,7 +263,9 @@
             width: 0
         Button:   
             text: 'Logout'
-            size_hint_x: 1  
+            size_hint_x: 1 
+            height: dp(40)
+            size_hint_y: None 
             color: 1, 1, 1,  
             background_color: 248/255, 113/255, 113/255, 1   
             background_normal: ''   

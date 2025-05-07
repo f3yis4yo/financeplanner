@@ -20,8 +20,8 @@
         Label:
             text: "Set Budget"
             color: 0, 0, 0, 1
-            font_size: '28sp'
-            bold: True
+            font_size: 25   
+            bold: True 
         Label:
             text: ""
 
@@ -180,8 +180,9 @@
             text: ""
         Button:
             text: "Add Budget"
-            background_color: 0.2, 0.4, 0.8, 1
+            background_color:  0.2, 0.8, 1, 1 #(aqua/cyan) match logo
             background_normal: ''
+            color: 1, 1, 1, 1
             on_press: root.save_allocation()
         Label:
 
@@ -190,14 +191,14 @@
             text: ""
         Button:
             text: "Back to Dashboard"
-            color: 0, 0, 1, 1
+            color: 0.2, 0.7, 0.2, 1  # Green text (green lime)
             background_color: 1, 1, 1, 1
             background_normal: ''
             border: (2, 2, 2, 2)
             on_press: root.manager.current = 'dashboard_screen'
             canvas.before:
                 Color:
-                    rgba: 0, 0, 1, 1 
+                    rgba: 0.4, 0.9, 0.2, 1  # Light green border (matches logo)
                 Line:
                     width: 2
                     rectangle: self.x, self.y, self.width, self.height

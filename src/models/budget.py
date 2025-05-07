@@ -15,10 +15,11 @@ class BudgetScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.session = get_session() 
+
     def on_pre_enter(self, *args):
         # pre-fill form with current budget if exists
         try:
-            current_budget = get_current_budget(user_id = 1) # Replace with actual logged-in user ID and session
+            current_budget = get_current_budget(user_id = App.get_running_app().user_id ) # actual logged-in user ID and session
             if current_budget:
                 self.ids.income_input.text = str(current_budget.monthly_income)
                 self.ids.budget_input.text = str(current_budget.monthly_budget)
@@ -125,7 +126,7 @@ class BudgetScreen(Screen):
             return
 
         try:
-            user_id = 1  # Replace with actual logged-in user ID
+            user_id = App.get_running_app().user_id  # actual logged-in user ID
             income = float(self.ids.income_input.text)
             budget = float(self.ids.budget_input.text)
             allocations = {

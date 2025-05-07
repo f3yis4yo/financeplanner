@@ -3,8 +3,8 @@
     name: 'my_login'
     GridLayout:
         cols: 3
-        spacing: 10
-        padding: 20
+        spacing: 5
+        padding: 10
         canvas.before:
             Color:
                 rgba: 1, 1, 1, 1
@@ -14,24 +14,32 @@
 
         column_minimum: 0, self.width * 0.10, self.width * 0.80, self.width * 0.10
 
-        # Fila A - Título
+        # Fila A - Logo
         Label:
-            text: "A1"
+            text: ""
+            size_hint_x: None
+            width: 0 
+        Image:
+            source: 'images/logo.png'
+            allow_stretch: True
+            keep_ratio: True
+            size_hint_y: None
+            height: dp(200)  # Adjust as needed for your logo size
         Label:
-            text: "BudgieBudget"
-            color: 0, 0, 0, 1
-            font_size: '24sp'
-            bold: True
-        Label:
-            text: "A3"
+            text: ""
+            size_hint_x: None
+            width: 0 
 
         # Fila B
         Label:
-            text: "B1"
+            text: ""
+            size_hint_x: None
+            width: 0 
         Label:
             text: "Login"
+            font_size: 25   
+            bold: True 
             color: 0, 0, 0, 1
-            width: self.texture_size[0]
             halign: 'left'
         Label:
 
@@ -90,8 +98,11 @@
             text: "G1"
         Button:
             text: "Login"
-            background_color: 0.2, 0.4, 0.8, 1
+            height: dp(40)
+            size_hint_y: None
+            background_color:  0.2, 0.8, 1, 1 #(aqua/cyan) match logo
             background_normal: ''
+            color: 1, 1, 1, 1
             on_press: root.do_login()
         
         Label:
@@ -101,14 +112,16 @@
             text: "H1"
         Button:
             text: "Register"
-            color: 0, 0, 1, 1
-            background_color: 1, 1, 1, 1  # Blanco
+            color: 0.2, 0.7, 0.2, 1  # Green text (green lime)
+            height: dp(40)
+            size_hint_y: None
+            background_color: 1, 1, 1, 1  # White
             background_normal: ''
-            border: (2, 2, 2, 2)  # Ancho del borde: izquierda, arriba, derecha, abajo
+            border: (2, 2, 2, 2) # Ancho del borde: izquierda, arriba, derecha, abajo
             on_press: root.manager.current = 'register_screen'
             canvas.before:
                 Color:
-                    rgba: 0, 0, 1, 1 
+                    rgba: 0.4, 0.9, 0.2, 1  # Light green border (matches logo)
                 Line:
                     width: 2
                     rectangle: self.x, self.y, self.width, self.height
