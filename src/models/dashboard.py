@@ -3,13 +3,52 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.metrics import dp
 from models.database import get_session, User, Budget, Expense, get_current_budget, get_user_expenses
 import os
+<<<<<<< HEAD
+from report_dashboard import ReportDashboard
+from models.report_dashboard import ReportDashboard
+=======
 from datetime import datetime
+>>>>>>> rebeca_cardenas
 
 class DashboardScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+<<<<<<< HEAD
+
+    def update_rect(self, instance, value):
+        pass
+
+    def update_dark_rect(self, instance, value):
+        pass
+
+    def make_icon_button(self, icon, text, bg_color, action):
+        pass
+
+    def show_add_expense_popup(self, instance):
+        print("Redirect to Add Expense screen")
+
+    def go_to_set_budget(self, instance):
+        print("Redirect to Set Budget screen")
+
+    def show_add_summary_popup(self, instance):
+        print("Opening Report Dashboard...")
+        report_screen = self.manager.get_screen('report_screen')
+        report_screen.update_report_data()  # Initialize/refresh data
+        self.manager.current = 'report_screen'
+
+    def open_settings(self, instance):
+        print("Open Settings menu")
+
+    def logout(self, instance):
+        print("Logging out...")
+        App.get_running_app().stop()
+
+    def show_add_predictions_popup(self, instance):
+        print("Notifications")
+=======
         self.session = get_session()
         self.user_id = 1 # Replace with the actual logged-in user ID
+>>>>>>> rebeca_cardenas
 
     def handle_predictions(self, instance, predictions):
         try:
@@ -120,6 +159,19 @@ class BudgieBudget(App):
     def build(self):
         sm = ScreenManager()
         sm.add_widget(DashboardScreen(name='dashboard'))
+        
+        from kivy.uix.screenmanager import screen
+        class ReportScreen(Screen):
+            def __init__(self, **kwargs):
+                super().__init__(**kwargs)
+                self.add_widget(ReportDashboard())
+                
+            def update_report_data(self):
+                """Refresh report data when screen is accessed"""
+                self.children[0].sample_data = self.children[0].generate_sample_data()
+                
+        sm.add_widget(ReportScreen(name='report_screen))'))
+        
         return sm
 
 if __name__ == '__main__':
