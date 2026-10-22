@@ -1,0 +1,277 @@
+#:kivy 2.3.1
+<DashboardScreen>:
+    name: 'dashboard_screen'
+    GridLayout:
+        cols: 3
+        spacing: 10
+        padding: 10
+        size_hint_x: 1
+        canvas.before: 
+            Color:
+                rgba: 0.83, 0.83, 0.83, 1  #app background_color
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        #column_minimum: self.width * 0.1, self.width * 0.8, self.width * 0.1
+          
+
+        # Row A: Title "BudgieBudget"
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0 
+        Label:
+            text: 'BudgieBudget'
+            halign: 'center'
+            color: 0, 0, 0, 1    
+            bold: True    
+            font_size: 30     
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0   
+
+        # Row B: Subtitle "Dashboard"
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0 
+        Label:
+            text: 'Dashboard'
+            halign: 'center'        
+            font_size: 25   
+            bold: True    
+            color: 0, 0, 0, 1       
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0        
+    
+        # Row C: C1 Hello @username! 
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0     
+        Label:    
+            id: greeting_label    
+            text: 'Hello @User!'
+            halign: 'left'    
+            font_name: 'Arial'    
+            font_size: 15    
+            color: 0, 0, 0, 1    
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0    
+        
+        # Row D: Total Balance box
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0 
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 10    
+            canvas.before:    
+                Color:
+                    rgba: 0.95, 0.95, 0.95, 1    
+                RoundedRectangle:    
+                    pos: self.pos
+                    size: self.size
+                    radius: [10]        
+            Label:
+                text: 'Total Balance'
+                font_size: 14    
+                halign: 'left'    
+                color: 0.2, 0.4, 1, 1    
+            Label:
+                id: total_balance_label
+                text: '$0.00'
+                font_size: 20
+                bold: True
+                color: 0, 0, 0, 1
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0 
+
+        # Row F: Main buttons
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0 
+        GridLayout:
+            cols: 3
+            spacing: 20
+            Button:
+                text: "➕\n  Add \nExpense"
+                font_size: 15
+                background_normal: ''
+                background_color: 59/255, 130/255, 246/255, 1
+                color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(70)
+                on_press: root.manager.current = 'expenses_screen'
+                canvas.before:
+                    Color:
+                        rgba: 59/255, 130/255, 246/255, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [10]
+            Button:
+                text: "💰\n  Set \nBudget"
+                font_size: 15
+                background_normal: ''
+                background_color: 34/255, 211/255, 238/255, 1
+                color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(70)
+                on_press: root.manager.current = 'budget_screen'
+                canvas.before:
+                    Color:
+                        rgba: 34/255, 211/255, 238/255, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [10]
+            Button:
+                text: "📊\n  View \nReports"
+                font_size: 15
+                background_normal: ''
+                background_color: 251/255, 191/255, 36/255, 1
+                color: 1, 1, 1, 1
+                size_hint_y: None
+                height: dp(70)
+                on_press: root.manager.current = 'report_kv_path'
+                canvas.before:
+                    Color:
+                        rgba: 251/255, 191/255, 36/255, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [10]
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0 
+        
+        # Row G: Recent Expenses Subtitle
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0 
+        Label:
+            text: 'Recent Expenses'    
+            font_size: 18    
+            bold: True      
+            color: 0, 0, 0, 1    
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0     
+        
+        # Row H: Recent Expenses box
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0 
+        BoxLayout:    
+            orientation: 'vertical'        
+            padding: 10    
+            canvas.before:    
+                Color:    
+                    rgba: 1, 1, 1, 1    
+                RoundedRectangle:    
+                    pos: self.pos    
+                    size: self.size    
+                    radius: [10]    
+            Label:    
+                id: recent_expenses_label
+                text: "No recent expenses"   
+                font_size: 13    
+                color: 0, 0, 0, 1    
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0     
+
+        # Row I: Notifications Subtitle
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0    
+        Label:
+            text: 'Notifications'
+            font_size: 18   
+            bold: True    
+            color: 0, 0, 0, 1
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0    
+
+        # Row J: Notifications box
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0 
+        BoxLayout:    
+            orientation: 'vertical'    
+            padding: 10
+            canvas.before:    
+                Color:    
+                    rgba: 1, 1, 1, 1    
+                RoundedRectangle:    
+                    pos: self.pos    
+                    size: self.size    
+                    radius: [10]    
+            Label:    
+                id: notifications_label # Example ID    
+                text: 'No notifications at this time.'    
+                font_size: 13    
+                color: 0, 0, 0, 1
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0    
+
+        # Row K: Logout button
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0
+        Button:   
+            text: 'Logout'
+            size_hint_x: 1  
+            color: 1, 1, 1,  
+            background_color: 248/255, 113/255, 113/255, 1   
+            background_normal: ''   
+            font_size: 16          
+            on_press: root.manager.current = 'login_screen'   
+            canvas.before:    
+                Color:    
+                    rgba: 248/255, 113/255, 113/255, 1    
+                RoundedRectangle:    
+                    pos: self.pos    
+                    size: self.size    
+                    radius: [10]    
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0   
+
+        # Row L: Year 2025
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0
+        Label:
+            text: '2025'    
+            size_hint_x: 1
+            color: 0, 0, 0, 1    
+            font_size: 14        
+        Label:
+            text: ""
+            size_hint_x: None
+            width: 0    

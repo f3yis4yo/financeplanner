@@ -1,0 +1,204 @@
+#:kivy 2.3.1
+<BudgetScreen>:
+    name: 'budget_screen'
+    GridLayout:
+        cols: 3
+        spacing: 10
+        padding: 10
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        column_minimum: 0, self.width * 0.10, self.width * 0.80, self.width * 0.10
+
+        # Row A - Title
+        Label:
+            text: ""
+        Label:
+            text: "Set Budget"
+            color: 0, 0, 0, 1
+            font_size: '28sp'
+            bold: True
+        Label:
+            text: ""
+
+        # Row B - Monthly Income Label
+        Label:
+            text: ""
+        Label:
+            text: "Monthly Income ($)"
+            color: 0, 0, 0.7, 1
+            font_size: '18sp'
+            halign: 'left'
+        Label:
+            text: ""
+
+        # Row C - Monthly Income Input
+        Label:
+            text: ""
+        TextInput:
+            id: income_input
+            hint_text: "Enter your income"
+            input_filter: 'float'
+            multiline: False
+        Label:
+            text: ""
+
+        # Row D - Monthly Budget Label
+        Label:
+            text: ""
+        Label:
+            text: "Monthly Budget"
+            color: 0, 0, 0.7, 1
+            font_size: '18sp'
+            halign: 'left'
+        Label:
+            text: ""
+
+        # Row E - Monthly Budget Input
+        Label:
+            text: ""
+        TextInput:
+            id: budget_input
+            hint_text: "Enter your monthly budget"
+            input_filter: 'float'
+            multiline: False
+        Label:
+            text: ""
+
+        # Row F - Category Allocation Label
+        Label:
+            text: ""
+        Label:
+            text: "Category Allocation"
+            color: 0, 0, 0.7, 1
+            font_size: '18sp'
+            halign: 'left'
+        Label:
+            text: ""
+
+        # Category: Food
+        Label:
+            text: ""
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            Label:
+                text: "Food"
+                color: 0, 0, 0, 1
+                size_hint_x: 0.4
+                halign: 'left'
+            TextInput:
+                id: food_input
+                hint_text: "Amount"
+                input_filter: 'float'
+                multiline: False
+        Label:
+            text: ""
+
+        # Category: Transport
+        Label:
+            text: ""
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            Label:
+                text: "Transport"
+                color: 0, 0, 0, 1
+                size_hint_x: 0.4
+                halign: 'left'
+            TextInput:
+                id: transport_input
+                hint_text: "Amount"
+                input_filter: 'float'
+                multiline: False
+        Label:
+            text: ""
+
+        # Category: Utilities
+        Label:
+            text: ""
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            Label:
+                text: "Utilities"
+                color: 0, 0, 0, 1
+                size_hint_x: 0.4
+                halign: 'left'
+            TextInput:
+                id: utilities_input
+                hint_text: "Amount"
+                input_filter: 'float'
+                multiline: False
+        Label:
+            text: ""
+
+        # Category: Entertainment
+        Label:
+            text: ""
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            Label:
+                text: "Entertainment"
+                color: 0, 0, 0, 1
+                size_hint_x: 0.4
+                halign: 'left'
+            TextInput:
+                id: entertainment_input
+                hint_text: "Amount"
+                input_filter: 'float'
+                multiline: False
+        Label:
+            text: ""
+
+        # Category: Other
+        Label:
+            text: ""
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 10
+            Label:
+                text: "Other"
+                color: 0, 0, 0, 1
+                size_hint_x: 0.4
+                halign: 'left'
+            TextInput:
+                id: other_input
+                hint_text: "Amount"
+                input_filter: 'float'
+                multiline: False
+        Label:
+            text: ""
+
+        # Row G - Buttons
+        Label:
+            text: ""
+        Button:
+            text: "Add Budget"
+            background_color: 0.2, 0.4, 0.8, 1
+            background_normal: ''
+            on_press: root.save_allocation()
+        Label:
+
+        # Row H - Buttons
+        Label:
+            text: ""
+        Button:
+            text: "Back to Dashboard"
+            color: 0, 0, 1, 1
+            background_color: 1, 1, 1, 1
+            background_normal: ''
+            border: (2, 2, 2, 2)
+            on_press: root.manager.current = 'dashboard_screen'
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 1, 1 
+                Line:
+                    width: 2
+                    rectangle: self.x, self.y, self.width, self.height
+        Label:

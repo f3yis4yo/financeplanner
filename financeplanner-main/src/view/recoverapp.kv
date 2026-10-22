@@ -1,0 +1,134 @@
+#:kivy 2.3.1
+<MyRecover>:
+    name: 'recover_screen'
+    GridLayout:
+        cols: 3
+        spacing: 10
+        padding: 10
+        canvas.before:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        column_minimum: 0, self.width * 0.10, self.width * 0.80, self.width * 0.10
+
+        # Fila A - Título
+        Label:
+            text: "A1"
+        Label:
+            text: "BudgieBudget"
+            color: 0, 0, 0, 1
+            font_size: '24sp'
+            bold: True
+        Label:
+            text: "A3"
+
+        Label:
+            text: "G1"
+        Label:
+            text: root.login_error
+            color: 1, 0, 0, 1 # Color rojo para indicar error
+            halign: 'center'
+            size_hint_y: None
+            height: 20
+        
+        Label:
+
+        # Fila B
+        Label:
+            text: "B1"
+        Label:
+            text: "Forgot Password"
+            color: 0, 0, 0, 1
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila E
+        Label:
+            text: "E1"
+        Label:
+            text: "Enter Registered Email"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila F
+        Label:
+            text: "F1"
+        TextInput:
+            id: user_input
+            hint_text: "Enter your email"
+        Label:
+
+        # Fila G
+        Label:
+            text: "G1"
+        Label:
+            text: "Security Question"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila H
+        Label:
+            text: "H1"
+        Spinner:
+            id: security_question_spinner
+            text: "Choose a security question"
+            values: ["What is your mother's maiden name?", "What was the name of your first pet?", "What is your favorite book?", "What was the name of your elementary school?", "In which city were you born?", "What is your favorite color?", "What was the make of your first car?"]
+            size_hint_x: 1
+        Label:
+
+        # Fila I
+        Label:
+            text: "I1"
+        Label:
+            text: "Answer"
+            color: 0, 0, 1, 1
+            size_hint_x: None
+            width: self.texture_size[0]
+            halign: 'left'
+        Label:
+
+        # Fila J
+        Label:
+            text: "J1"
+        TextInput:
+            id: confirm_password_input
+            hint_text: "Enter you answer"
+            password: True
+        Label:
+
+        # Fila Q
+        Label:
+            text: "Q1"
+        Button:
+            text: "Retreve Email"
+            background_color: 0.2, 0.4, 0.8, 1
+            background_normal: ''
+            on_press: root.submit_recovery()
+        Label:
+
+        Label:
+            text: "H1"
+        Button:
+            text: "Back to Login"
+            color: 0, 0, 1, 1
+            background_color: 1, 1, 1, 1
+            background_normal: ''
+            border: (2, 2, 2, 2)  
+            on_press: root.manager.current = 'login_screen'
+            canvas.before:
+                Color:
+                    rgba: 0, 0, 1, 1 
+                Line:
+                    width: 2
+                    rectangle: self.x, self.y, self.width, self.height
+        Label:
