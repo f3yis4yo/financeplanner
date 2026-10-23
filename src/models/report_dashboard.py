@@ -1,3 +1,4 @@
+from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.popup import Popup
@@ -19,7 +20,6 @@ class ReportDashboard(BoxLayout):
         self.spacing = 10
         self.padding = 10
         self.sample_data = self.generate_sample_data()
-<<<<<<< HEAD
         self.build_ui()
 
     def build_ui(self):
@@ -65,7 +65,6 @@ class ReportDashboard(BoxLayout):
         self.add_widget(filter_layout)
         self.add_widget(action_layout)
         self.add_widget(self.content_area)
-=======
 
     def generate_sample_data(self):
         # Generate 30 days of sample data
@@ -187,6 +186,5 @@ class ReportDashboardApp(App):
     def build(self):
         self.title = "Report Dashboard"  # Set the window title
         return ReportDashboard()
->>>>>>> rebeca_cardenas
 
     # ... (keep all existing methods unchanged from your original file) ...
