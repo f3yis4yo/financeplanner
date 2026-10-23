@@ -3,17 +3,14 @@ from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.metrics import dp
 from models.database import get_session, User, Budget, Expense, get_current_budget, get_user_expenses
 import os
-<<<<<<< HEAD
-from report_dashboard import ReportDashboard
 from models.report_dashboard import ReportDashboard
-=======
 from datetime import datetime
->>>>>>> rebeca_cardenas
 
 class DashboardScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-<<<<<<< HEAD
+        self.session = get_session()
+        self.user_id = 1 # Replace with the actual logged-in user ID
 
     def update_rect(self, instance, value):
         pass
@@ -45,10 +42,6 @@ class DashboardScreen(Screen):
 
     def show_add_predictions_popup(self, instance):
         print("Notifications")
-=======
-        self.session = get_session()
-        self.user_id = 1 # Replace with the actual logged-in user ID
->>>>>>> rebeca_cardenas
 
     def handle_predictions(self, instance, predictions):
         try:
